@@ -33,12 +33,14 @@
 - IDE：Cloud9
 ​
 ## 使用素材
+後ほど追加・削除予定
 - Recipe Category List API　
   - https://webservice.rakuten.co.jp/documentation/recipe-category-list
 - Recipe Category Ranking API　
   - https://webservice.rakuten.co.jp/documentation/recipe-category-ranking
 - ホットペッパー　グルメサーチAPI　
   - https://webservice.recruit.co.jp/doc/hotpepper/reference.html
-- ロゴとして以下を使用　
-  - WIX(https://ja.wix.com/logo/maker）　
-  - removebg(https://www.remove.bg/ja)
+- フリーAI生成ロゴとして以下を使用　
+  - WIX（ https://ja.wix.com/logo/maker ）
+- フリー画像切り抜きとして下記を使用
+  - removebg（ https://www.remove.bg/ja ）
