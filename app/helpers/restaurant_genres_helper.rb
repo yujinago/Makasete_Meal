@@ -1,0 +1,2 @@
+module RestaurantGenresHelper
+end
