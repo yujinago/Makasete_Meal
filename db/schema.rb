@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_07_020312) do
+ActiveRecord::Schema.define(version: 2023_09_07_031023) do
+
+  create_table "recipe_categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "recipe_category_id", null: false
+    t.string "name", null: false
+    t.string "url", null: false
+    t.string "poster_name", null: false
+    t.string "cook_time", null: false
+    t.string "cost", null: false
+    t.text "foodstuff_name", null: false
+    t.text "memo", default: "", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -18,7 +38,7 @@ ActiveRecord::Schema.define(version: 2023_09_07_020312) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "nickname"
+    t.string "nickname", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
