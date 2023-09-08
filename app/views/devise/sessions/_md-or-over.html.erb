@@ -1,0 +1,14 @@
+<tr class="d-none d-md-table-row">
+  <th>メールアドレス:</th>
+  <td><%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@example.com" %></td>
+</tr>
+
+<tr class="d-none d-md-table-row">
+  <th>パスワード:</th>
+  <td><%= f.password_field :password, autocomplete: "new-password" %></td>
+</tr>
+
+<tr class="d-none d-md-table-row">
+  <th></th>
+  <td><%= f.submit "ログイン", class: "btn btn-outline-secondary" %></td>
+</tr>

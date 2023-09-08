@@ -13,10 +13,16 @@
       <% end %>
     </div>
   </div>
-  <div class="row">
-    <div class="col-10 mx-auto my-3">
-      <h4>既に登録済みの方</h4>
+  <div class="row justify-content-md-center">
+    <div class="col-md-4 my-3 text-center">
+      <h4 class="mb-3">既に登録済みの方</h4>
       <%= render "devise/shared/links" %>からログインしてください。
+    </div>
+    <div class="col-md-4 my-3 d-flex align-items-end justify-content-center">
+      もしくは
+    </div>
+    <div class="col-md-4 my-3 d-flex align-items-end justify-content-center">
+      <div class="border p-2">Googleでログイン</div>
     </div>
   </div>
 </div>

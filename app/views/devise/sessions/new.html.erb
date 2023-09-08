@@ -1,26 +1,27 @@
-<h2>Log in</h2>
-
-<%= form_with model: @user, url: user_session_path do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="container">
+  <div class="row">
+    <div class="col-7 mx-auto">
+      <h1 class="my-3 text-center">ログイン</h4>
+      <%= form_with model: @user, url: user_session_path do |f| %>
+        <table class="table table-borderless">
+          <!-- mdより下の画面幅の時に表示 -->
+          <%= render 'devise/sessions/under-md', f: f %>
+          <!-- md以上の画面幅の時に表示 -->
+          <%= render 'devise/sessions/md-or-over', f: f %>
+        </table>
+      <% end %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  <div class="row justify-content-md-center">
+    <div class="col-md-4 my-3 text-center">
+      <h4 class="mb-3">会員登録がお済みでない方</h4>
+      <%= render "devise/shared/links" %>から新規登録を行ってください。
+    </div>
+    <div class="col-md-4 my-3 d-flex align-items-end justify-content-center">
+      もしくは
+    </div>
+    <div class="col-md-4 my-3 d-flex align-items-end justify-content-center">
+      <div class="border p-2">Googleでログイン</div>
+    </div>
+  </div>
+</div>

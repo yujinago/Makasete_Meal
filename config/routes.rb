@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-
+  # devise
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+  
   # homes
   root to: 'homes#top'
   get 'about' => 'homes#about'
-  
-  # devise
-  devise_for :users
   
   # users
   get 'users/mypage' => 'users#show'
