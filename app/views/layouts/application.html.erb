@@ -13,54 +13,18 @@
 
   <body>
     <header class="border-bottom">
-      <nav class="navbar navbar-expand-md navbar-light">
-        <div class="container-fluid">
-          <%= image_tag "MakaseteMeal_logo.png", alt: "Makasete Meal", class: "navbar-brand" %>
-          
-          <p class="pt-3 ml-md-5">ようこそ、〇〇さん</p>
-          
-          <button class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <ul class="navbar-nav ml-auto">
-              
-              <li class="nav-item">
-                <%= link_to "About", about_path, class: "btn btn-light nav-link ml-2" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "マイページ", users_mypage_path, class: "btn btn-light nav-link ml-2" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "ログアウト", destroy_user_session_path, class: "btn btn-light nav-link ml-2" %>
-              </li>
-              
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <%= render 'layouts/header'%>
     </header>
-    <%= yield %>
-    <footer class="border-top">
-      <div class="d-md-flex justify-content-center">
-        <!-- Rakuten logo -->
-        <div class="mt-3 text-center">
-          <a href="https://webservice.rakuten.co.jp/" target="_blank">
-            <img src="https://webservice.rakuten.co.jp/img/credit/200709/credit_31130.gif" border="0" alt="Rakuten Web Service Center" title="Rakuten Web Service Center" width="311" height="30"/>
-          </a>
-        </div>
-        <!-- Hot Pepper logo -->
-        <div class="mt-3 text-center">
-          <a href="http://webservice.recruit.co.jp/">
-            <img src="http://webservice.recruit.co.jp/banner/hotpepper-m.gif" alt="ホットペッパー Webサービス" width="88" height="35" border="0" title="ホットペッパー Webサービス">
-          </a>
+    <div class = "container px-5 px-sm-0">
+      <div class = "row">
+        <div class = "col-md-8 mt-2">
+          <%= flash[:notice] %>
         </div>
       </div>
-      <p class="text-center mt-3">
-        <small>©CopyRight Makasete-Meal.inc</small>
-      </p>
+    </div>
+    <%= yield %>
+    <footer class="border-top">
+      <%= render 'layouts/footer'%>
     </footer>
   </body>
 </html>

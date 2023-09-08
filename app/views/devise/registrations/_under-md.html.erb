@@ -1,0 +1,28 @@
+<tr class="d-md-none">
+  <th class="d-block">ニックネーム:</th>
+  <td class="d-block"><%= f.text_field :nickname, autofocus: true, autocomplete: "nickname", placeholder: "たろう" %></td>
+</tr>
+
+<tr class="d-md-none">
+  <th class="d-block">メールアドレス:</th>
+  <td class="d-block"><%= f.email_field :email, autocomplete: "email", placeholder: "sample@example.com" %></td>
+</tr>
+
+<tr class="d-md-none">
+  <th class="d-block">パスワード
+    <% if minimum_password_length %>
+    <em>(<%= minimum_password_length %> 文字以上):</em>
+    <% end %>
+  </th>
+  <td class="d-block"><%= f.password_field :password, autocomplete: "new-password" %></td>
+</tr>
+
+<tr class="d-md-none">
+  <th class="d-block">パスワード(確認用):</th>
+  <td class="d-block"><%= f.password_field :password_confirmation, autocomplete: "new-password" %></td>
+</tr>
+
+<tr class="d-md-none">
+  <th class="d-block"></th>
+  <td class="d-block"><%= f.submit "新規登録", class: "btn btn-outline-secondary" %></td>
+</tr>

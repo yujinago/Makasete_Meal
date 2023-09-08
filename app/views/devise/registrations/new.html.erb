@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-7 mx-auto">
+      <h1 class="my-3 text-center">新規会員登録</h4>
+      <%= form_with model: @user, url: user_registration_path do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <table class="table table-borderless">
+          <!-- mdより下の画面幅の時に表示 -->
+          <%= render 'devise/registrations/under-md', f: f, minimum_password_length: @minimum_password_length %>
+          <!-- md以上の画面幅の時に表示 -->
+          <%= render 'devise/registrations/md-or-over', f: f, minimum_password_length: @minimum_password_length %>
+        </table>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-10 mx-auto my-3">
+      <h4>既に登録済みの方</h4>
+      <%= render "devise/shared/links" %>からログインしてください。
+    </div>
+  </div>
+</div>
+  
