@@ -40,7 +40,10 @@
   - https://webservice.rakuten.co.jp/documentation/recipe-category-ranking
 - ホットペッパー　グルメサーチAPI　
   - https://webservice.recruit.co.jp/doc/hotpepper/reference.html
-- フリーAI生成ロゴとして以下を使用　
+- フリーAI生成ロゴとして下記を使用　
   - WIX（ https://ja.wix.com/logo/maker ）
 - フリー画像切り抜きとして下記を使用
   - removebg（ https://www.remove.bg/ja ）
+- フリーイラストとして下記を使用
+  - ソコスト（ https://soco-st.com/ ）
+  - かわいいフリー素材集いらすとや（ https://www.irasutoya.com/ ）

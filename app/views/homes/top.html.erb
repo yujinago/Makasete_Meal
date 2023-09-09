@@ -1,2 +1,22 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h1 class="col-lg-8 text-center my-5 mx-auto">
+      何を食べよう…。</br>
+      悩んでいるなら、まかせてみる？
+    </h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6 text-center mt-5">
+      <h1>料理を作る</h1>
+      <%= link_to new_recipe_path do %>
+      <%= image_tag 'cook.png', size: "300x250", class: "my-3 hover-zoom" %>
+      <% end %>
+    </div>
+    <div class="col-md-6 text-center mt-5">
+      <h1>食べに行く</h1>
+      <%= link_to new_restaurant_path do %>
+      <%= image_tag 'restaurant.png', size: "250x250", class: "my-3 ml-5 hover-zoom" %>
+      <% end %>
+    </div>
+  </div>
+</div>
