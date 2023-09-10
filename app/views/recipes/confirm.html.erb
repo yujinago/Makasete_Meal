@@ -1,2 +1,30 @@
-<h1>Recipes#confirm</h1>
-<p>Find me in app/views/recipes/confirm.html.erb</p>
+<h1 class="text-center mt-5">レシピ提案</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <%= image_tag @recipe_image %>
+    </div>
+    <div class="col-md-8">
+      <p><%= @recipe.name %></p>
+      <p><%= @recipe.url %></p>
+      <p><%= @recipe.recipe_category.name %></p>
+      <p><%= @recipe.poster_name %></p>
+      <p><%= @recipe.cook_time %></p>
+      <p><%= @recipe.cost %></p>
+      <p><%= @recipe.foodstuff_name %></p>
+      <div class="text-center">
+      <%= form_with model: @recipe, url: recipes_path, method: :post do |f| %>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.hidden_field :name, :value => @recipe.name %>
+        <%= f.hidden_field :url, :value => @recipe.url %>
+        <%= f.hidden_field :recipe_category_id, :value => @recipe.recipe_category.id %>
+        <%= f.hidden_field :poster_name, :value => @recipe.poster_name %>
+        <%= f.hidden_field :cook_time, :value => @recipe.cook_time %>
+        <%= f.hidden_field :cost, :value => @recipe.cost %>
+        <%= f.hidden_field :foodstuff_name, :value => @recipe.foodstuff_name %>
+        <%= f.hidden_field :recipe_image, :value => @recipe_image %>
+        <%= f.submit "このレシピにする", class:"btn btn-outline-secondary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

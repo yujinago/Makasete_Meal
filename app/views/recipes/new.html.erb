@@ -1,8 +1,14 @@
 <h1 class="text-center mt-5">料理を作る</h1>
-<%= form_with model: @recipe, url: confirm_recipes_path do |f| %>
-  <div class="form-group">
+
+<%= form_with model: @recipe, url: confirm_recipes_path, method: :post do |f| %>
+  <div class="form-group text-center">
+    <%= f.radio_button :select_recipe_category_id, 0, checked: true %>
     <%= f.label :recipe_category_id, "カテゴリーを選択する", style: "margin-right:62px;" %>
-    <%= f.collection_select :recipe_category_id, @recipe_categories, :id, :name, include_blank: "--選択してください--" %>
+    <%= f.collection_select :recipe_category_id, @recipe_categories, :category_id, :name, include_blank: "--選択してください--" %>
+  </div>
+  <div class="form-group text-center">
+    <%= f.radio_button :select_recipe_category_id, 1 %>
+    <%= f.label :recipe_category_id, "完全にお任せする" %>
   </div>
   <div class="form-group text-center">
     <%= f.submit "まかせてみる", class:"btn btn-outline-secondary" %>

@@ -8,7 +8,7 @@ class RecipeCategoriesController < ApplicationController
       @recipe_categories << recipe_category
     end
     @recipe_categories.each do |recipe_category|
-      unless RecipeCategory.exists?(name: recipe_category.name)
+      unless RecipeCategory.exists?(category_id: recipe_category.category_id)
         recipe_category.save
       end
     end
@@ -19,8 +19,10 @@ class RecipeCategoriesController < ApplicationController
   
   def cook(result)
     name = result["categoryName"]
+    category_id = result["categoryId"]
     {
-      name: name
+      name: name,
+      category_id: category_id
     }
   end
   
