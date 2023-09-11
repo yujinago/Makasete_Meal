@@ -51,11 +51,15 @@ class RecipesController < ApplicationController
     file_name = File.basename(URI.parse(recipe_image).path)
     @recipe.recipe_image.attach(io: file, filename: file_name)
     @recipe.save
+    session[:last_saved_info] = @recipe
     redirect_to complete_recipes_path
   end
   
   def complete
-    @recipe = Recipe.find(parems[:id])
+    @recipe = session[:last_saved_info]
+    @recipe_category = RecipeCategory.find_by(id: @recipe['recipe_category_id'])
+    @recipe_info = Recipe.find_by(foodstuff_name: @recipe['foodstuff_name'])
+    @foodstuff_name_format = @recipe_info.foodstuff_name_format
   end
 
   def index
