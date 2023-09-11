@@ -1,17 +1,21 @@
 <h1 class="text-center mt-5">レシピ提案</h1>
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
-      <%= image_tag @recipe_image %>
+    <div class="col-lg-4 my-3">
+      <div class="text-center">
+      <%= image_tag @recipe_image, size: "300x300", class: "w-75 h-75" %>
+      </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-lg-8 my-3 mx-auto">
+      <div class="">
       <p><%= @recipe.name %></p>
-      <p><%= @recipe.url %></p>
+      <p><a href="<%= @recipe.url %>">楽天レシピで詳細を確認する</a></p>
       <p><%= @recipe.recipe_category.name %></p>
       <p><%= @recipe.poster_name %></p>
       <p><%= @recipe.cook_time %></p>
       <p><%= @recipe.cost %></p>
-      <p><%= @recipe.foodstuff_name %></p>
+      <p><%= @recipe.foodstuff_name_format %></p>
+      </div>
       <div class="text-center">
       <%= form_with model: @recipe, url: recipes_path, method: :post do |f| %>
         <%= f.hidden_field :user_id, :value => current_user.id %>

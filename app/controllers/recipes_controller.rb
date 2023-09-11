@@ -6,15 +6,25 @@ class RecipesController < ApplicationController
 
   def confirm
     @recipe_categories = RecipeCategory.all
-    random_num = rand(1..4)
+    # random_num = rand(1..4)
     results = []
     if params[:recipe][:select_recipe_category_id] == "0"
-      RakutenWebService::Recipe.ranking(params[:recipe][:recipe_category_id]).each {|n| results << n}
-      result = results.select {|n| n.rank == random_num}
-      result = results.first
+      category_id = params[:recipe][:recipe_category_id]
+    elsif params[:recipe][:select_recipe_category_id] == "1"
+      category_id = @recipe_categories.offset( rand(@recipe_categories.count) ).first.category_id
+    end
+    if category_id.blank?
+      # flash.now[:notice] = "カテゴリーを選択するか、完全におまかせを選択してください。"
+      redirect_to new_recipe_path, notice: "カテゴリーを選択するか、完全におまかせを選択してください。"
+    else
+      recipe_category = RecipeCategory.find_by(category_id: category_id)
+      RakutenWebService::Recipe.ranking(category_id).each {|n| results << n}
+      result = results.sample
+      # result = results.select {|n| n.rank == random_num}
+      # result = results.first
       result_hash = {
         user_id: current_user.id,
-        recipe_category_id: params[:recipe][:recipe_category_id],
+        recipe_category_id: recipe_category.id,
         name: result["recipeTitle"],
         url: result["recipeUrl"],
         poster_name: result["nickname"],
@@ -24,24 +34,12 @@ class RecipesController < ApplicationController
       }
       @recipe_image = result["foodImageUrl"]
       @recipe = Recipe.new(result_hash)
-    elsif params[:recipe][:select_recipe_category_id] == "1"
-      recipe_category_id = @recipe_categories.offset( rand(@recipe_categories.count) ).first.id
-      RakutenWebService::Recipe.ranking(params[:recipe][:recipe_category_id]).each {|n| results << n}
-      result = results.select {|n| n.rank == random_num}
-      result = results.first
-      result_hash = {
-        user_id: current_user.id,
-        recipe_category_id: recipe_category_id,
-        name: result["recipeTitle"],
-        url: result["recipeUrl"],
-        poster_name: result["nickname"],
-        cook_time: result["recipeIndication"],
-        cost: result["recipeCost"],
-        foodstuff_name: result["recipeMaterial"]
-      }
-      @recipe_image = result["foodImageUrl"]
-      @recipe = Recipe.new(result_hash)
     end
+    
+    # if @recipe.recipe_category_id.blank?
+    #   flash.now[:notice] = "カテゴリーを選択するか、完全におまかせを選択してください。"
+    #   render :new
+    # end
     
   end
   
@@ -57,6 +55,7 @@ class RecipesController < ApplicationController
   end
   
   def complete
+    @recipe = Recipe.find(parems[:id])
   end
 
   def index
