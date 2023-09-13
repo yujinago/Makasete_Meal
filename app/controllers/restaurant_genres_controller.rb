@@ -21,6 +21,10 @@ class RestaurantGenresController < ApplicationController
         restaurant_genre.save
       end
     end
+    
+    
+    
+    
     redirect_to new_restaurant_path
 
   end

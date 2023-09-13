@@ -6,6 +6,26 @@ class RestaurantsController < ApplicationController
   def new
     @restaurant = Restaurant.new
     @restaurant_genres = RestaurantGenre.all
+    
+    area_results = []
+    key = ENV['HotPepper_API_KEY']
+    area_uri = URI.parse("http://webservice.recruit.co.jp/hotpepper/large_area/v1/?key=#{key}&format=json")
+    area_response = Net::HTTP.get_response(area_uri)
+    if area_response.code =="301"
+      area_uri = URI.parse(area_response["location"])
+    end
+    area_json = Net::HTTP.get(area_uri)
+    area_result_all = JSON.parse(area_json)
+    area_result_all["results"]["large_area"].each do |large_area|
+      code = large_area["code"]
+      name = large_area["name"]
+    
+      area_result = { name => code }
+      area_results << area_result
+    end
+    area_results_hash = area_results.reduce({}, :merge)
+    @area_results = area_results_hash
+    
   end
 
   def confirm
