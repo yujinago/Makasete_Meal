@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   # restaurants
   resources :restaurants do
     collection do
+      get 'middle_area_select'
       post 'confirm'
       get 'complete'
     end

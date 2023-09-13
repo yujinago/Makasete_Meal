@@ -1,2 +1,42 @@
-<h1>Restaurants#complete</h1>
-<p>Find me in app/views/restaurants/complete.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h1 class="col-lg-8 text-center mt-5 mx-auto">このレシピに決まりました</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 my-3">
+      <div class="text-center">
+      <%= image_tag @restaurant_info.get_restaurant_image(500, 500), size: "300x300", class: "rounded" %>
+      </div>
+    </div>
+    <div class="col-lg-8 my-3 mx-auto">
+      <div class="border border-dark p-2 text-center font-weight-bold">
+        <p class="my-auto"><%= @restaurant['name'] %></p>
+      </div>
+      <div class="border-right border-bottom border-left border-dark">
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto font-weight-bold">店舗URL&emsp;&emsp;:</p>
+          <p class="my-auto ml-md-2"><a href="<%= @restaurant['url'] %>">楽天レシピで詳細を確認する</a></p>
+        </div>
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto  font-weight-bold">ジャンル名:</p>
+          <p class="my-auto  ml-md-2"><%= @restaurant_genre.name %></p>
+        </div>
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto font-weight-bold">住所&emsp;&emsp;&emsp;:</p>
+          <p class="my-auto ml-md-2"><%= @restaurant['address'] %></p>
+        </div>
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto font-weight-bold">営業時間&emsp;:</p>
+          <p class="my-auto ml-md-2"><%= @restaurant['open_time'] %></p>
+        </div>
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto font-weight-bold">定休日&emsp;&emsp;:</p>
+          <p class="my-auto ml-md-2"><%= @restaurant['legular_holiday'] %></p>
+        </div>
+      </div>
+      <div class="text-center pt-5">
+        <%= link_to "レビューする", edit_recipe_path(@restaurant['id']), class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>
