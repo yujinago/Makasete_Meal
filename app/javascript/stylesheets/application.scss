@@ -1,6 +1,7 @@
 @use '~bootstrap/scss/bootstrap';
 
-/* ホバー時のスタイル */
+/* Top画面のイラストホバー時のスタイル */
+
 .hover-zoom {
   transition: transform 0.5s; /* アニメーションの速度調整 */
 }
@@ -8,4 +9,30 @@
 .hover-zoom:hover {
   transform: scale(1.1); /* 1.2倍に拡大 */
   z-index: 1; /* 他の要素よりも前面に表示 */
+}
+
+// index画面tabメニュー
+
+#tab-menu li a {
+  color: #fff;
+  background: #FFA500;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+#tab-menu .active {
+  background: #fff;
+  color: #000;
+}
+
+#tab-contents .tab {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #000;
+  border-top: none;
+}
+
+#tab-contents p {
+  color: #000;
+  line-height: 2.5;
 }

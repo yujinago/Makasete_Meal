@@ -146,24 +146,3 @@ class RestaurantsController < ApplicationController
   end
   
 end
-
-
-# middle_area_results = []
-# large_area = params[:restaurant_large_area]
-# key = ENV['HotPepper_API_KEY']
-# middle_area_uri = URI.parse("http://webservice.recruit.co.jp/hotpepper/middle_area/v1/?key=#{key}&large_area=#{large_area}&format=json")
-# middle_area_response = Net::HTTP.get_response(middle_area_uri)
-# if middle_area_response.code =="301"
-#   middle_area_uri = URI.parse(middle_area_response["location"])
-# end
-# middle_area_json = Net::HTTP.get(middle_area_uri)
-# middle_area_result_all = JSON.parse(middle_area_json)
-# middle_area_result_all["results"]["middle_area"].each do |middle_area|
-#   code = middle_area["code"]
-#   name = middle_area["name"]
-
-#   middle_area_result = { name => code }
-#   middle_area_results << middle_area_result
-# end
-# middle_area_results_hash = middle_area_results.reduce({}, :merge)
-# @middle_area_results = middle_area_results_hash
