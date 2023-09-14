@@ -30,7 +30,7 @@ class RecipesController < ApplicationController
         poster_name: result["nickname"],
         cook_time: result["recipeIndication"],
         cost: result["recipeCost"],
-        foodstuff_name: result["recipeMaterial"],
+        foodstuff_name: result["recipeMaterial"]
       }
       @recipe_image = result["foodImageUrl"]
       @recipe = Recipe.new(result_hash)

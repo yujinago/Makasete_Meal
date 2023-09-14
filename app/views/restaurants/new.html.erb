@@ -1,2 +1,31 @@
-<h1>Restaurants#new</h1>
-<p>Find me in app/views/restaurants/new.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h1 class="col-lg-8 text-center mt-5 mx-auto">食べに行く</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-8 mt-5 mx-auto">
+      <%= form_with model: @restaurant, url: confirm_restaurants_path, method: :post do |f| %>
+        <div class="form-group">
+          <%= f.radio_button :select_restaurant_genre_id, 0, checked: true %>
+          <%= f.label :select_restaurant_genre_id, "条件を選択する", style: "margin-right:62px;" %>
+          <div class="ml-5">
+            <%= f.label :restaurant_genre_id, "ジャンル" %>
+            <%= f.collection_select :restaurant_genre_id, @restaurant_genres, :genre_code, :name, include_blank: "--選択してください(任意)--" %>
+          </div>
+          <div class="ml-5">
+            <%= f.label :restaurant_area, "場所" %>
+            <%= f.select :restaurant_large_area, @large_area_results, {include_blank: "--必須--"}, {id: "large_area_results"} %>
+            <%= render 'restaurants/middle_area', middle_area_results: [] %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.radio_button :select_restaurant_genre_id, 1 %>
+          <%= f.label :select_restaurant_genre_id, "完全にお任せする" %>
+        </div>
+        <div class="form-group text-center">
+          <%= f.submit "まかせてみる", class:"btn btn-outline-secondary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

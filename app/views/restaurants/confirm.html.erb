@@ -1,2 +1,66 @@
-<h1>Restaurants#confirm</h1>
-<p>Find me in app/views/restaurants/confirm.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h1 class="col-lg-8 text-center mt-5 mx-auto">お店提案</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 my-3">
+      <div class="text-center">
+      <%= image_tag @restaurant_image, size: "300x300", class: "rounded" %>
+      </div>
+    </div>
+    <div class="col-lg-8 my-3 mx-auto">
+      <div class="border border-dark p-2 text-center font-weight-bold">
+        <p class="my-auto"><%= @restaurant.name %></p>
+      </div>
+      <div class="border-right border-bottom border-left border-dark">
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto font-weight-bold">店舗URL&emsp;&emsp;:</p>
+          <p class="my-auto ml-md-2"><a href="<%= @restaurant.url %>">ホットペッパーで詳細を確認する</a></p>
+        </div>
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto  font-weight-bold">ジャンル名:</p>
+          <p class="my-auto  ml-md-2"><%= @restaurant.restaurant_genre.name %></p>
+        </div>
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto font-weight-bold">住所&emsp;&emsp;&emsp;:</p>
+          <p class="my-auto ml-md-2"><%= @restaurant.address %></p>
+        </div>
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto font-weight-bold">営業時間&emsp;:</p>
+          <p class="my-auto ml-md-2"><%= @restaurant.open_time %></p>
+        </div>
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto font-weight-bold">定休日&emsp;&emsp;:</p>
+          <p class="my-auto ml-md-2"><%= @restaurant.legular_holiday %></p>
+        </div>
+      </div>
+      <div class="text-center pt-5">
+      <%= form_with model: @restaurant, url: restaurants_path, method: :post do |f| %>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.hidden_field :name, :value => @restaurant.name %>
+        <%= f.hidden_field :url, :value => @restaurant.url %>
+        <%= f.hidden_field :restaurant_genre_id, :value => @restaurant.restaurant_genre.id %>
+        <%= f.hidden_field :address, :value => @restaurant.address %>
+        <%= f.hidden_field :open_time, :value => @restaurant.open_time %>
+        <%= f.hidden_field :legular_holiday, :value => @restaurant.legular_holiday %>
+        <%= f.hidden_field :restaurant_image, :value => @restaurant_image %>
+        <%= f.submit "このお店にする", class: "btn btn-outline-secondary" %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mt-4 mr-4">
+      <%= link_to "条件を変更する", new_restaurant_path, class: "btn btn-outline-secondary" %>
+    </div>
+    <div class="mt-4 mb-4">
+      <%= form_with model: @restaurant, url: confirm_restaurants_path, method: :post do |f| %>
+        <%= f.hidden_field :select_restaurant_genre_id, :value => 0 %>
+        <%= f.hidden_field :restaurant_genre_id, :value => @restaurant.restaurant_genre.genre_code %>
+        <%= f.hidden_field :restaurant_large_area, :value => @restaurant_large_area %>
+        <%= f.hidden_field :restaurant_middle_area, :value => @restaurant_middle_area %>
+        <%= f.submit "同じ条件で別のお店を探す", class:"btn btn-outline-secondary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
