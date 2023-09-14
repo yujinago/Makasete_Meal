@@ -1,6 +1,7 @@
 @use '~bootstrap/scss/bootstrap';
 
-/* ホバー時のスタイル */
+/* Top画面のイラストホバー時のスタイル */
+
 .hover-zoom {
   transition: transform 0.5s; /* アニメーションの速度調整 */
 }
