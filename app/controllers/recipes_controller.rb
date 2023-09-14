@@ -63,26 +63,41 @@ class RecipesController < ApplicationController
   end
 
   def index
+    @recipes = Recipe.all
   end
 
   def show
+    @recipe = Recipe.find(params[:id])
   end
 
   def edit
+    @recipe = Recipe.find(params[:id])
   end
   
   def update
-    
+    @recipe = Recipe.find(params[:id])
+    if @recipe.update(recipe_memo_params)
+      flash.now[:notice] = "レシピのレビューを変更しました"
+      redirect_to recipe_path(@recipe)
+    else
+      render "edit"
+    end
   end
   
   def destroy
-    
+    @recipe = Recipe.find(params[:id])
+    @recipe.destroy
+    redirect_to recipes_path
   end
   
   private
   
   def recipe_params
     params.require(:recipe).permit(:user_id, :name, :url, :recipe_category_id, :poster_name, :cook_time, :cost, :foodstuff_name)
+  end
+  
+  def recipe_memo_params
+    params.require(:recipe).permit(:memo)
   end
   
 end
