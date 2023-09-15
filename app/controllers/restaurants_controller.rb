@@ -154,7 +154,7 @@ class RestaurantsController < ApplicationController
   
   def update
     @restaurant = current_user.restaurants.find(params[:id])
-    if @restaurant.update(restaurant_memo_params)
+    if @restaurant.update(restaurant_review_params)
       flash[:notice] = "お店のレビューを変更しました"
       redirect_to restaurant_path(@restaurant)
     else
@@ -174,7 +174,7 @@ class RestaurantsController < ApplicationController
     params.require(:restaurant).permit(:user_id, :name, :url, :restaurant_genre_id, :address, :open_time, :legular_holiday)
   end
   
-  def restaurant_memo_params
+  def restaurant_review_params
     params.require(:restaurant).permit(:memo, :star)
   end
   
