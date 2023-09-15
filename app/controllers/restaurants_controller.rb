@@ -1,4 +1,6 @@
 class RestaurantsController < ApplicationController
+  before_action :ensure_current_user, only: [:show, :edit, :update, :destroy]
+  
   require 'net/http'
   require 'uri'
   require 'json'
@@ -123,20 +125,39 @@ class RestaurantsController < ApplicationController
   end
 
   def index
+    @restaurant_genres = RestaurantGenre.all
+    if params[:genre_id]
+      @restaurant_genre = RestaurantGenre.find(params[:genre_id])
+      @genre_restaurant_all = @restaurant_genre.restaurants.where(user_id: current_user.id)
+      @restaurants = @restaurant_genre.restaurants.where(user_id: current_user.id).page(params[:page])
+    else
+      @restaurant_all = current_user.restaurants.all
+      @restaurants = current_user.restaurants.page(params[:page])
+    end
   end
 
   def show
+    @restaurant = current_user.restaurants.find(params[:id])
   end
 
   def edit
+    @restaurant = current_user.restaurants.find(params[:id])
   end
   
   def update
-    
+    @restaurant = current_user.restaurants.find(params[:id])
+    if @restaurant.update(restaurant_memo_params)
+      flash[:notice] = "お店のレビューを変更しました"
+      redirect_to restaurant_path(@restaurant)
+    else
+      render "edit"
+    end
   end
   
-  def destory
-    
+  def destroy
+    @restaurant = current_user.restaurants.find(params[:id])
+    @restaurant.destroy
+    redirect_to restaurants_path
   end
   
   private
@@ -145,4 +166,21 @@ class RestaurantsController < ApplicationController
     params.require(:restaurant).permit(:user_id, :name, :url, :restaurant_genre_id, :address, :open_time, :legular_holiday)
   end
   
+  def restaurant_memo_params
+    params.require(:restaurant).permit(:memo)
+  end
+  
+  def ensure_current_user
+    if params[:id] == "confirm"
+      flash[:alert] = "提案画面でのリロードは無効です。もう一度条件を選択し直してください。"
+      redirect_to new_restaurant_path
+    else
+      restaurant = Restaurant.find_by(id: params[:id])
+      if restaurant.nil? || current_user.id != restaurant.user_id
+        flash[:alert] = "不正なアクセスです。"
+        redirect_to restaurants_path
+      end
+    end
+  end
+    
 end

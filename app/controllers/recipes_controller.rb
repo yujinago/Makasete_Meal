@@ -101,10 +101,15 @@ class RecipesController < ApplicationController
   end
   
   def ensure_current_user
-    recipe = Recipe.find(params[:id])
-    unless current_user.id == recipe.user_id
-      flash[:alert] = "他のユーザーのレシピにアクセスする権限がありません。"
-      redirect_to recipes_path
+    if params[:id] == "confirm"
+      flash[:alert] = "提案画面でのリロードは無効です。もう一度条件を選択し直してください。"
+      redirect_to new_recipe_path
+    else
+      recipe = Recipe.find_by(id: params[:id])
+      if recipe.nil? || current_user.id != recipe.user_id
+        flash[:alert] = "不正なアクセスです。"
+        redirect_to recipes_path
+      end
     end
   end
   
