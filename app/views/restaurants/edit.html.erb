@@ -1,4 +1,5 @@
 <div class="container">
+  <%= render 'layouts/error', error: @restaurant %>
   <div class="row">
     <h1 class="col-lg-8 text-center mt-5 mx-auto">レビュー編集</h1>
   </div>
@@ -43,6 +44,7 @@
           <h2><%= f.label :memo, "メモ", style: "margin-right:60px;" %></h2>
           <%= f.text_area :memo, placeholder:"ここにメモすることができます。", size: "60x5", class: "w-75" %>
         </div>
+        <%= render 'form_rate', f: f, restaurant: @restaurant %>
         <div class="form-group text-right">
           <%= f.submit "登録する", class: "btn btn-outline-secondary" %>
         </div>

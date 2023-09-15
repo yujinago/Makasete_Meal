@@ -41,6 +41,7 @@
       <div class="form-group d-md-flex">
         <h2 style="margin-right:62px;">メモ</h2>
         <span class="w-75 border border-dark"><%= @restaurant.memo %></span>
+        <%= render 'show_rate', restaurant: @restaurant %>
       </div>
       <div class="form-group text-right">
         <%= link_to "編集する", edit_restaurant_path(@restaurant) %>|

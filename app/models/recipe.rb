@@ -3,6 +3,16 @@ class Recipe < ApplicationRecord
   belongs_to :user
   belongs_to :recipe_category
   
+ 
+  validates :star, numericality: {
+    less_than_or_equal_to: 5,
+    greater_than_or_equal_to: 1},
+    presence: true, on: :update
+    
+  scope :latest, -> {order(created_at: :desc)}
+  scope :old, -> {order(created_at: :asc)}
+  scope :star_count, -> {order(star: :desc)}
+  
   # foodstuff_nameの表記が見やすくなるよう変更
   def foodstuff_name_format
     cleaned_string = foodstuff_name.gsub(/\[|\]|"/, '')

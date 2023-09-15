@@ -61,8 +61,16 @@ class RecipesController < ApplicationController
       @category_recipe_all = @recipe_category.recipes.where(user_id: current_user.id)
       @recipes = @recipe_category.recipes.where(user_id: current_user.id).page(params[:page])
     else
+      if params[:latest]
+        @recipes = current_user.recipes.latest.page(params[:page])
+      elsif params[:old]
+        @recipes = current_user.recipes.old.page(params[:page])
+      elsif params[:star_count]
+        @recipes = current_user.recipes.star_count.page(params[:page])
+      else
+        @recipes = current_user.recipes.page(params[:page])
+      end
       @recipe_all = current_user.recipes.all
-      @recipes = current_user.recipes.page(params[:page])
     end
   end
 
@@ -76,7 +84,7 @@ class RecipesController < ApplicationController
   
   def update
     @recipe = current_user.recipes.find(params[:id])
-    if @recipe.update(recipe_memo_params)
+    if @recipe.update(recipe_review_params)
       flash[:notice] = "レシピのレビューを変更しました"
       redirect_to recipe_path(@recipe)
     else
@@ -96,8 +104,8 @@ class RecipesController < ApplicationController
     params.require(:recipe).permit(:user_id, :name, :url, :recipe_category_id, :poster_name, :cook_time, :cost, :foodstuff_name)
   end
   
-  def recipe_memo_params
-    params.require(:recipe).permit(:memo)
+  def recipe_review_params
+    params.require(:recipe).permit(:memo, :star)
   end
   
   def ensure_current_user

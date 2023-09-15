@@ -131,8 +131,16 @@ class RestaurantsController < ApplicationController
       @genre_restaurant_all = @restaurant_genre.restaurants.where(user_id: current_user.id)
       @restaurants = @restaurant_genre.restaurants.where(user_id: current_user.id).page(params[:page])
     else
+      if params[:latest]
+        @restaurants = current_user.restaurants.latest.page(params[:page])
+      elsif params[:old]
+        @restaurants = current_user.restaurants.old.page(params[:page])
+      elsif params[:star_count]
+        @restaurants = current_user.restaurants.star_count.page(params[:page])
+      else
+        @restaurants = current_user.restaurants.page(params[:page])
+      end
       @restaurant_all = current_user.restaurants.all
-      @restaurants = current_user.restaurants.page(params[:page])
     end
   end
 
@@ -146,7 +154,7 @@ class RestaurantsController < ApplicationController
   
   def update
     @restaurant = current_user.restaurants.find(params[:id])
-    if @restaurant.update(restaurant_memo_params)
+    if @restaurant.update(restaurant_review_params)
       flash[:notice] = "お店のレビューを変更しました"
       redirect_to restaurant_path(@restaurant)
     else
@@ -166,8 +174,8 @@ class RestaurantsController < ApplicationController
     params.require(:restaurant).permit(:user_id, :name, :url, :restaurant_genre_id, :address, :open_time, :legular_holiday)
   end
   
-  def restaurant_memo_params
-    params.require(:restaurant).permit(:memo)
+  def restaurant_review_params
+    params.require(:restaurant).permit(:memo, :star)
   end
   
   def ensure_current_user

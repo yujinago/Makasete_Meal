@@ -1,0 +1,22 @@
+<div class="form-group">
+  <%= f.label :star %>
+  <%= f.hidden_field :star, id: :restaurant_star, class: 'form-control' %>
+  <div id="edit_raty"></div>
+</div>
+<script>
+  $(document).on('turbolinks:load', function() {
+    let editElem = document.querySelector('#edit_raty');
+    if (editElem != null) {
+      editElem.innerHTML = "";
+      let editOpt = {  
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        scoreName: 'restaurant[star]',
+        readOnly: false, // 編集時に評価を入力可能にする
+        score: <%= restaurant.star || 0 %>,
+      };
+      raty(editElem, editOpt);
+    }
+  });
+</script>
