@@ -3,7 +3,7 @@ class Recipe < ApplicationRecord
   belongs_to :user
   belongs_to :recipe_category
   
-  validates :url, uniqueness: true
+ 
   validates :star, numericality: {
     less_than_or_equal_to: 5,
     greater_than_or_equal_to: 1},

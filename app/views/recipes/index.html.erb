@@ -14,7 +14,7 @@
         |<%= link_to '古い順', recipes_path(old: "true") %>
         |<%= link_to '評価の高い順', recipes_path(star_count: "true") %>
       </div>
-      <div class="">
+      <div>
         <%= form_with model: @recipe, url: recipes_path, method: :get do |f| %>
           <%= f.collection_select :category_id, @recipe_categories, :id, :name, include_blank: "カテゴリー検索"  %>
           <%= button_tag type: "submit", class:"btn btn-default" do %>
