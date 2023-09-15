@@ -1,2 +1,42 @@
-<h1>Restaurants#index</h1>
-<p>Find me in app/views/restaurants/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <% if params[:genre_id] %>
+      <h1 class="col-lg-8 text-center my-5 mx-auto"><%= @restaurant_genre.name %>一覧(全<%= @genre_restaurant_all.count %>件)</h5></h1>
+      <%= link_to "お店一覧に戻る", restaurants_path %>
+    <% else %>
+      <h1 class="col-lg-8 text-center my-5 mx-auto">食べに行ったお店一覧(全<%= @restaurant_all.count %>件)</h5></h1>
+    <% end %>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="text-right">
+        <%= form_with model: @restaurant, url: restaurants_path, method: :get do |f| %>
+          <%= f.collection_select :genre_id, @restaurant_genres, :id, :name, include_blank: "ジャンル検索"  %>
+          <%= button_tag type: "submit", class:"btn btn-default" do %>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class='table'> 
+        <tbody>
+          <% @restaurants.each do |restaurant| %>
+            <tr>
+              <td><%= image_tag restaurant.get_restaurant_image(500, 500), size: "100x100", class: "rounded" %></td>
+              <td><%= link_to restaurant.name, restaurant_path(restaurant.id) %></td>
+              <td><%= restaurant.restaurant_genre.name %></td>
+              <td></td>
+              <td></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center mt-3">
+        <%= paginate @restaurants %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,2 +1,51 @@
-<h1>Restaurants#show</h1>
-<p>Find me in app/views/restaurants/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h1 class="col-lg-8 text-center mt-5 mx-auto">食べに行ったお店詳細</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 my-3">
+      <div class="text-center">
+      <%= image_tag @restaurant.get_restaurant_image(500, 500), size: "300x300", class: "rounded" %>
+      </div>
+    </div>
+    <div class="col-lg-8 my-3 mx-auto">
+      <div class="border border-dark p-2 text-center font-weight-bold">
+        <p class="my-auto"><%= @restaurant.name %></p>
+      </div>
+      <div class="border-right border-bottom border-left border-dark">
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto font-weight-bold">お店URL&emsp;:</p>
+          <p class="my-auto ml-md-2"><a href="<%= @restaurant.url %>">ホットペッパーグルメで詳細を確認する</a></p>
+        </div>
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto  font-weight-bold">ジャンル名:</p>
+          <p class="my-auto  ml-md-2"><%= @restaurant.restaurant_genre.name %></p>
+        </div>
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto font-weight-bold">住所&emsp;&emsp;&emsp;:</p>
+          <p class="my-auto ml-md-2"><%= @restaurant.address %></p>
+        </div>
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto font-weight-bold">営業時間&emsp;:</p>
+          <p class="my-auto ml-md-2"><%= @restaurant.open_time %></p>
+        </div>
+        <div class="d-md-flex border-bottom">
+          <p class="my-auto font-weight-bold">定休日&emsp;&emsp;:</p>
+          <p class="my-auto ml-md-2"><%= @restaurant.legular_holiday %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 my-3 mx-auto">
+      <div class="form-group d-md-flex">
+        <h2 style="margin-right:62px;">メモ</h2>
+        <span class="w-75 border border-dark"><%= @restaurant.memo %></span>
+      </div>
+      <div class="form-group text-right">
+        <%= link_to "編集する", edit_restaurant_path(@restaurant) %>|
+        <%= link_to "削除する", @restaurant, method: :delete, data: { confirm: 'このお店詳細のデータが消えてしまいます。本当に消しますか？' } %>
+      </div>
+    </div>
+  </div>
+</div>
