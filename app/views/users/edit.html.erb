@@ -1,2 +1,26 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<div class="container">
+  <%= render 'layouts/error', error: @user %>
+  <div class="row">
+    <h1 class="col-lg-8 text-center mt-5 mx-auto">会員情報編集</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mt-5 mx-auto">
+      <%= form_with model: @user, url: users_infomation_path, method: :patch do |f| %>
+        <div class="d-lg-flex justify-content-between">
+          <h4>ニックネーム:</h4>
+          <h4><%= f.text_field :nickname %></h4>
+        </div>
+        <div class="d-lg-flex justify-content-between">
+          <h4>メールアドレス:</h4>
+          <h4><%= f.text_field :email %></h4>
+        </div>
+        <div class="text-center my-3">
+          <%= f.submit "編集内容を保存", class: "btn btn-outline-secondary" %>
+        </div>
+        <div class="text-center">
+          <%= link_to "退会する", users_confirm_path, class: "btn btn-outline-danger" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

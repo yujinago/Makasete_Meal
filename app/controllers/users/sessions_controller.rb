@@ -4,9 +4,16 @@ class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   before_action :user_state, only: [:create]
   
+  # ゲストログイン
+  def guest_sign_in
+    user = User.guest
+    sign_in user
+    redirect_to root_path, notice: "ゲストユーザーでログインしました。"
+  end
+  
   protected
   
-  #ログイン時のバリデーション
+  # ログイン時のバリデーション
   def user_state
     @user = User.find_by(email: params[:user][:email])
     if @user

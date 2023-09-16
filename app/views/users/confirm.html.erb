@@ -1,2 +1,22 @@
-<h1>Users#confirm</h1>
-<p>Find me in app/views/users/confirm.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h1 class="col-lg-8 text-center mt-5 mx-auto">本当に退会しますか？</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-10 mt-5 mx-auto">
+      <h3 class="text-center">
+        退会すると、会員登録情報や</br>
+        これまでの作ったレシピ、食べに行ったお店の</br>
+        履歴、レビュー、メモ等全て削除され</br>
+        閲覧できなくなります。退会する場合は、</br>
+        「退会する」をクリックしてください。
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mt-5 mx-auto text-center">
+      <%= link_to "退会しない", users_mypage_path, class: "btn btn-outline-secondary mr-3" %>
+      <%= link_to "退会する", users_infomation_path, method: :delete ,class: "btn btn-outline-danger", data: { confirm: "本当に退会しますか？" } %>
+    </div>
+  </div>
+</div>
