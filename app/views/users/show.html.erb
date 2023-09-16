@@ -1,2 +1,45 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h1 class="col-lg-8 text-center mt-5 mx-auto">マイページ</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-8 mt-5 mx-auto">
+      <div class="d-flex mb-3">
+      <h2 class="mr-4">登録情報</h2>
+      <% unless @user.guest_user? %>
+        <%= link_to "編集する", users_infomation_edit_path, class: "btn btn-outline-secondary mb-3" %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-7 mx-auto">
+      <div class="d-lg-flex justify-content-between">
+        <h4>ニックネーム:</h4>
+        <h4><%= @user.nickname %></h4>
+        <span></span>
+      </div>
+      <div class="d-lg-flex justify-content-between">
+        <h4>メールアドレス:</h4>
+        <h4><%= @user.email %></h4>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 mt-5 mx-auto">
+      <div class="d-lg-flex justify-content-between">
+        <h2>作ったレシピ</h2>
+        <%= link_to "一覧を見る", recipes_path, class: "btn btn-outline-secondary mb-3 mr-5" %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 mt-5 mx-auto">
+      <div class="d-lg-flex justify-content-between">
+        <h2>食べに行ったお店</h2>
+        <%= link_to "一覧を見る", restaurants_path, class: "btn btn-outline-secondary mb-3 mr-5" %>
+      </div>
+    </div>
+  </div>
+</div>
