@@ -15,7 +15,8 @@ class RecipesController < ApplicationController
       category_id = @recipe_categories.offset( rand(@recipe_categories.count) ).first.category_id
     end
     if category_id.blank?
-      redirect_to new_recipe_path, notice: "カテゴリーを選択するか、完全におまかせを選択してください。"
+      flash[:alert] = "カテゴリーを選択するか、完全におまかせを選択してください。"
+      redirect_to new_recipe_path
     else
       recipe_category = RecipeCategory.find_by(category_id: category_id)
       RakutenWebService::Recipe.ranking(category_id).each {|n| results << n}
@@ -57,9 +58,14 @@ class RecipesController < ApplicationController
   def index
     @recipe_categories = RecipeCategory.all
     if params[:category_id]
-      @recipe_category = RecipeCategory.find(params[:category_id])
-      @category_recipe_all = @recipe_category.recipes.where(user_id: current_user.id)
-      @recipes = @recipe_category.recipes.where(user_id: current_user.id).page(params[:page])
+      if params[:category_id].blank?
+        flash[:alert] = "カテゴリーを選択してください"
+        redirect_to recipes_path
+      else
+        @recipe_category = RecipeCategory.find(params[:category_id])
+        @category_recipe_all = @recipe_category.recipes.where(user_id: current_user.id)
+        @recipes = @recipe_category.recipes.where(user_id: current_user.id).page(params[:page])
+      end
     else
       if params[:latest]
         @recipes = current_user.recipes.latest.page(params[:page])
@@ -95,6 +101,7 @@ class RecipesController < ApplicationController
   def destroy
     @recipe = current_user.recipes.find(params[:id])
     @recipe.destroy
+    flash[:notice] = "レシピを削除しました"
     redirect_to recipes_path
   end
   

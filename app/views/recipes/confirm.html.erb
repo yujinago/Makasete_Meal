@@ -62,7 +62,7 @@
       <%= form_with model: @recipe, url: confirm_recipes_path, method: :post do |f| %>
         <%= f.hidden_field :select_recipe_category_id, :value => 0 %>
         <%= f.hidden_field :recipe_category_id, :value => @recipe.recipe_category.category_id %>
-        <%= f.submit "同じ条件で別レシピを探す", class:"btn btn-outline-secondary" %>
+        <%= f.submit "同じカテゴリーで別レシピを探す", class:"btn btn-outline-secondary" %>
       <% end %>
     </div>
   </div>
