@@ -70,7 +70,8 @@ class RestaurantsController < ApplicationController
       large_area = params[:restaurant][:restaurant_large_area]
       middle_area = params[:restaurant][:restaurant_middle_area]
       if large_area.blank? || middle_area.blank?
-        redirect_to new_restaurant_path, notice: "場所を選択するか、完全におまかせを選択してください。"
+        flash[:alert] = "場所を選択するか、完全におまかせを選択してください。"
+        redirect_to new_restaurant_path
       end
       
     elsif params[:restaurant][:select_restaurant_genre_id] == "1"
@@ -127,9 +128,14 @@ class RestaurantsController < ApplicationController
   def index
     @restaurant_genres = RestaurantGenre.all
     if params[:genre_id]
-      @restaurant_genre = RestaurantGenre.find(params[:genre_id])
-      @genre_restaurant_all = @restaurant_genre.restaurants.where(user_id: current_user.id)
-      @restaurants = @restaurant_genre.restaurants.where(user_id: current_user.id).page(params[:page])
+      if params[:genre_id].blank?
+        flash[:alert] = "ジャンルを選択してください"
+        redirect_to restaurants_path
+      else
+        @restaurant_genre = RestaurantGenre.find(params[:genre_id])
+        @genre_restaurant_all = @restaurant_genre.restaurants.where(user_id: current_user.id)
+        @restaurants = @restaurant_genre.restaurants.where(user_id: current_user.id).page(params[:page])
+      end
     else
       if params[:latest]
         @restaurants = current_user.restaurants.latest.page(params[:page])
@@ -165,6 +171,7 @@ class RestaurantsController < ApplicationController
   def destroy
     @restaurant = current_user.restaurants.find(params[:id])
     @restaurant.destroy
+    flash[:notice] = "お店を削除しました"
     redirect_to restaurants_path
   end
   
