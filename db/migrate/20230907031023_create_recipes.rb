@@ -9,7 +9,7 @@ class CreateRecipes < ActiveRecord::Migration[6.1]
       t.string :cook_time, null: false
       t.string :cost, null: false
       t.text :foodstuff_name, null: false
-      t.text :memo, null: false, default: ""
+      t.text :memo
 
       t.timestamps
     end
