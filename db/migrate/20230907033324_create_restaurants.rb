@@ -8,7 +8,7 @@ class CreateRestaurants < ActiveRecord::Migration[6.1]
       t.string :address, null: false
       t.string :open_time, null: false
       t.string :legular_holiday, null: false
-      t.text :memo, null: false, default: ""
+      t.text :memo
 
       t.timestamps
     end
