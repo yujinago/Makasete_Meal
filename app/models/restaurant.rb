@@ -3,6 +3,7 @@ class Restaurant < ApplicationRecord
   has_one_attached :restaurant_image
   belongs_to :user
   belongs_to :restaurant_genre
+  has_one :restaurant_favorite, dependent: :destroy
   
   validates :star, numericality: {
     less_than_or_equal_to: 5,
@@ -19,6 +20,10 @@ class Restaurant < ApplicationRecord
       restaurant_image.attach(io: File.open(file_path), filename: 'no_image.jpg', content_type: 'image/jpg')
     end
     restaurant_image.variant(resize_to_limit: [width, height]).processed
+  end
+  
+  def favorited_by?(user)
+    !restaurant_favorite.nil? && restaurant_favorite.user_id == user.id
   end
 
 end

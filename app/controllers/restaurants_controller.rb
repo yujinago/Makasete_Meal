@@ -134,20 +134,22 @@ class RestaurantsController < ApplicationController
       else
         @restaurant_genre = RestaurantGenre.find(params[:genre_id])
         @genre_restaurant_all = @restaurant_genre.restaurants.where(user_id: current_user.id)
-        @restaurants = @restaurant_genre.restaurants.where(user_id: current_user.id).page(params[:page])
+        restaurants = @restaurant_genre.restaurants.where(user_id: current_user.id)
       end
+    elsif params[:user_id]
+      favorites = RestaurantFavorite.where(user_id: current_user.id).pluck(:restaurant_id)
+      @favorite_restaurant_all = Restaurant.where(id: favorites)
+      restaurants = Restaurant.where(id: favorites)
     else
-      if params[:latest]
-        @restaurants = current_user.restaurants.latest.page(params[:page])
-      elsif params[:old]
-        @restaurants = current_user.restaurants.old.page(params[:page])
-      elsif params[:star_count]
-        @restaurants = current_user.restaurants.star_count.page(params[:page])
-      else
-        @restaurants = current_user.restaurants.page(params[:page])
-      end
       @restaurant_all = current_user.restaurants.all
+      restaurants = current_user.restaurants
     end
+      
+    restaurants = params[:latest] ? restaurants.latest : restaurants
+    restaurants = params[:old] ? restaurants.old : restaurants
+    restaurants = params[:star_count] ? restaurants.star_count : restaurants
+    
+    @restaurants = restaurants.page(params[:page])
   end
 
   def show

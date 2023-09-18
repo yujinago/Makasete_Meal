@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       post 'confirm'
       get 'complete'
     end
+    resource :restaurant_favorites, only: [:create, :destroy]
   end
   
   # recipe_categories
