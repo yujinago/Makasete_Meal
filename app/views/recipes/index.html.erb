@@ -1,19 +1,37 @@
 <div class="container">
   <div class="row">
-    <% if params[:category_id] %>
-      <h1 class="col-lg-8 text-center my-5 mx-auto"><%= @recipe_category.name %>一覧(全<%= @category_recipe_all.count %>件)</h5></h1>
-      <%= link_to "レシピ一覧に戻る", recipes_path %>
-    <% else %>
-      <h1 class="col-lg-8 text-center my-5 mx-auto">作ったレシピ一覧(全<%= @recipe_all.count %>件)</h5></h1>
-    <% end %>
+    <div class="col-12 text-right ml-auto">
+      <% if params[:category_id] || params[:user_id] %>
+        <%= link_to "レシピ一覧>", recipes_path %>
+      <% else %>
+        <%= link_to "お気に入り一覧>", recipes_path(user_id: current_user.id) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <h1 class="col-lg-8 text-center my-5 mx-auto">
+      <% if params[:category_id] %>
+        <%= @recipe_category.name %>一覧(全<%= @category_recipe_all.count %>件)
+      <% elsif params[:user_id] %>
+        お気に入りレシピ一覧(全<%= @favorite_recipe_all.count %>件)
+      <% else %>
+        作ったレシピ一覧(全<%= @recipe_all.count %>件)
+      <% end %>
+    </h1>
   </div>
   <div class="row">
     <div class="col-12 d-flex">
       <div class="mr-auto">
         <% if @recipes.present? %>
-          <%= link_to '新しい順', recipes_path(latest: "true") %>
-          |<%= link_to '古い順', recipes_path(old: "true") %>
-          |<%= link_to '評価の高い順', recipes_path(star_count: "true") %>
+          <% link_params = {} %>
+          <% if params[:category_id] %>
+            <% link_params[:category_id] = params[:category_id] %>
+          <% elsif params[:user_id] %>
+            <% link_params[:user_id] = current_user.id %>
+          <% end %>
+          <%= link_to '新しい順', recipes_path(link_params.merge(latest: "true")) %>
+          |<%= link_to '古い順', recipes_path(link_params.merge(old: "true")) %>
+          |<%= link_to '評価の高い順', recipes_path(link_params.merge(star_count: "true")) %>
         <% end %>
       </div>
       <div>
@@ -41,7 +59,9 @@
               <td><%= image_tag recipe.get_recipe_image(500, 500), size: "100x100", class: "rounded" %></td>
               <td><%= link_to recipe.name, recipe_path(recipe.id) %></td>
               <td><%= recipe.recipe_category.name %></td>
-              <td></td>
+              <td id="favorite-btn_<%= recipe.id %>">
+                <%= render 'recipe_favorites/favorite-btn', recipe: recipe %>
+              </td>
               <td><%= render 'show_rate', recipe: recipe %></td>
             </tr>
           <% end %>

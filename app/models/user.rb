@@ -6,6 +6,8 @@ class User < ApplicationRecord
          
   has_many :recipes, dependent: :destroy
   has_many :restaurants, dependent: :destroy
+  has_many :recipe_favorites, dependent: :destroy
+  has_many :restaurant_favorites, dependent: :destroy
   
   validates :nickname, presence: true, length: { maximum: 10 }
   validates :email, presence: true, uniqueness: true

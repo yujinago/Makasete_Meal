@@ -5,7 +5,12 @@
   <div class="row">
     <div class="col-lg-4 my-3">
       <div class="text-center">
-      <%= image_tag @recipe.get_recipe_image(500, 500), size: "300x300", class: "rounded" %>
+        <div class="d-inline-block position-relative">
+          <%= image_tag @recipe.get_recipe_image(500, 500), size: "300x300", class: "rounded" %>
+          <div id="favorite-btn_<%= @recipe.id %>" class="d-flex position-absolute favorite">
+            <%= render 'recipe_favorites/favorite-btn', recipe: @recipe %>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-lg-8 my-3 mx-auto">
