@@ -64,20 +64,22 @@ class RecipesController < ApplicationController
       else
         @recipe_category = RecipeCategory.find(params[:category_id])
         @category_recipe_all = @recipe_category.recipes.where(user_id: current_user.id)
-        @recipes = @recipe_category.recipes.where(user_id: current_user.id).page(params[:page])
+        recipes = @recipe_category.recipes.where(user_id: current_user.id)
       end
+    elsif params[:user_id]
+      favorites = RecipeFavorite.where(user_id: current_user.id).pluck(:recipe_id)
+      @favorite_recipe_all = Recipe.where(id: favorites)
+      recipes = Recipe.where(id: favorites)
     else
-      if params[:latest]
-        @recipes = current_user.recipes.latest.page(params[:page])
-      elsif params[:old]
-        @recipes = current_user.recipes.old.page(params[:page])
-      elsif params[:star_count]
-        @recipes = current_user.recipes.star_count.page(params[:page])
-      else
-        @recipes = current_user.recipes.page(params[:page])
-      end
       @recipe_all = current_user.recipes.all
+      recipes = current_user.recipes
     end
+    
+    recipes = params[:latest] ? recipes.latest : recipes
+    recipes = params[:old] ? recipes.old : recipes
+    recipes = params[:star_count] ? recipes.star_count : recipes
+    
+    @recipes = recipes.page(params[:page])
   end
 
   def show
