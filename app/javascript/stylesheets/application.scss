@@ -1,12 +1,18 @@
 @use '~bootstrap/scss/bootstrap';
 
-/* Top画面のイラストホバー時のスタイル */
-
+// Top画面のイラストホバー時のスタイル
 .hover-zoom {
-  transition: transform 0.5s; /* アニメーションの速度調整 */
+  transition: transform 0.5s;
 }
 
 .hover-zoom:hover {
-  transform: scale(1.1); /* 1.2倍に拡大 */
-  z-index: 1; /* 他の要素よりも前面に表示 */
+  transform: scale(1.1);
+  z-index: 1;
+}
+
+// favoriteの追加スタイル
+.favorite {
+  right: 5px;
+  bottom: 5px;
+  align-items: flex-end;
 }

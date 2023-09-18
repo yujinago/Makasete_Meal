@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       post 'confirm'
       get 'complete'
     end
+    resource :recipe_favorites, only: [:create, :destroy]
   end
   
   # recipe_categories

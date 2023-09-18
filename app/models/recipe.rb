@@ -2,6 +2,7 @@ class Recipe < ApplicationRecord
   has_one_attached :recipe_image
   belongs_to :user
   belongs_to :recipe_category
+  has_one :recipe_favorite, dependent: :destroy
   
   validates :star, numericality: {
     less_than_or_equal_to: 5,
@@ -26,4 +27,9 @@ class Recipe < ApplicationRecord
     end
     recipe_image.variant(resize_to_limit: [width, height]).processed
   end
+  
+  def favorited_by?(user)
+    !recipe_favorite.nil? && recipe_favorite.user_id == user.id
+  end
+  
 end
