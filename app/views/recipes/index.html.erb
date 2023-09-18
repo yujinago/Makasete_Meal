@@ -41,16 +41,8 @@
               <td><%= image_tag recipe.get_recipe_image(500, 500), size: "100x100", class: "rounded" %></td>
               <td><%= link_to recipe.name, recipe_path(recipe.id) %></td>
               <td><%= recipe.recipe_category.name %></td>
-              <td>
-                <% if recipe.favorited_by?(current_user) %>
-                  <%= link_to recipe_recipe_favorites_path(recipe), method: :delete do %>
-                    <i class="fa-solid fa-heart fa-2xl" style="color: #ff0000;"></i>
-                  <% end %>
-                <% else %>
-                  <%= link_to recipe_recipe_favorites_path(recipe), method: :post do %>
-                    <i class="fa-regular fa-heart fa-2xl" style="color: #ff0000;"></i>
-                  <% end %>
-                <% end %>
+              <td id="favorite-btn_<%= recipe.id %>">
+                <%= render 'recipe_favorites/favorite-btn', recipe: recipe %>
               </td>
               <td><%= render 'show_rate', recipe: recipe %></td>
             </tr>
