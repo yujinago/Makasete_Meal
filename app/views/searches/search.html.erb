@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <%= render 'searches/recipe_search' %>
+  </div>
+  <div class="row">
+    <h1 class="col-lg-8 text-center my-5 mx-auto">
+      <% if @range == "Recipe" %>
+        <%= @search_text %> "<%= @word %>"の検索結果
+      <% else %>
+        Restaurants search for "<%= @word %>"
+      <% end %>
+    </h1>
+  </div>
+  <% if @range == "Recipe" %>
+      <%= render 'recipes/index',recipes: @recipes %>
+  <% else %>
+      <%= render '/restaurants/index/',restaurants: @restaurants %>
+  <% end %>
+</div>

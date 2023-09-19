@@ -32,4 +32,18 @@ class Recipe < ApplicationRecord
     !recipe_favorite.nil? && recipe_favorite.user_id == user.id
   end
   
+  def self.looks(search, word, user_id)
+    if search == "name"
+      Recipe.where("name LIKE? AND user_id = ?", "%#{word}%", user_id)
+    elsif search == "poster_name"
+      Recipe.where("poster_name LIKE? AND user_id = ?", "%#{word}%", user_id)
+    elsif search == "cook_time"
+      Recipe.where("cook_time LIKE? AND user_id = ?", "%#{word}%", user_id)
+    elsif search == "cost"
+      Recipe.where("cost LIKE? AND user_id = ?", "%#{word}%", user_id)
+    elsif search == "foodstuff_name"
+      Recipe.where("foodstuff_name LIKE? AND user_id = ?", "%#{word}%", user_id)
+    end
+  end
+  
 end

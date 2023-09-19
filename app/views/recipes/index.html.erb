@@ -1,5 +1,6 @@
 <div class="container">
   <div class="row">
+    <%= render 'searches/recipe_search' %>
     <div class="col-12 text-right ml-auto">
       <% if params[:category_id] || params[:user_id] %>
         <%= link_to "レシピ一覧>", recipes_path %>
@@ -19,57 +20,5 @@
       <% end %>
     </h1>
   </div>
-  <div class="row">
-    <div class="col-12 d-flex">
-      <div class="mr-auto">
-        <% if @recipes.present? %>
-          <% link_params = {} %>
-          <% if params[:category_id] %>
-            <% link_params[:category_id] = params[:category_id] %>
-          <% elsif params[:user_id] %>
-            <% link_params[:user_id] = current_user.id %>
-          <% end %>
-          <%= link_to '新しい順', recipes_path(link_params.merge(latest: "true")) %>
-          |<%= link_to '古い順', recipes_path(link_params.merge(old: "true")) %>
-          |<%= link_to '評価の高い順', recipes_path(link_params.merge(star_count: "true")) %>
-        <% end %>
-      </div>
-      <div>
-        <%= form_with model: @recipe, url: recipes_path, method: :get do |f| %>
-          <%= f.collection_select :category_id, @recipe_categories, :id, :name, include_blank: "カテゴリー検索"  %>
-          <%= button_tag type: "submit", class:"btn btn-default" do %>
-            <i class="fa-solid fa-magnifying-glass"></i>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <% unless @recipes.present? %>
-    <h2 class="text-center mt-5">まだレシピを保存していません。</h2>
-    <div class="text-center mt-3">
-      <%= link_to "料理を作る", new_recipe_path, class:"btn btn-outline-secondary" %>
-    </div>
-  <% end %>
-  <div class="row">
-    <div class="col-12">
-      <table class='table'> 
-        <tbody>
-          <% @recipes.each do |recipe| %>
-            <tr>
-              <td><%= image_tag recipe.get_recipe_image(500, 500), size: "100x100", class: "rounded" %></td>
-              <td><%= link_to recipe.name, recipe_path(recipe.id) %></td>
-              <td><%= recipe.recipe_category.name %></td>
-              <td id="favorite-btn_<%= recipe.id %>">
-                <%= render 'recipe_favorites/favorite-btn', recipe: recipe %>
-              </td>
-              <td><%= render 'show_rate', recipe: recipe %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <div class="d-flex justify-content-center mt-3">
-        <%= paginate @recipes %>
-      </div>
-    </div>
-  </div>
+  <%= render 'recipes/index',recipes: @recipes %>
 </div>
