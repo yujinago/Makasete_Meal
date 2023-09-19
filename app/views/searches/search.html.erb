@@ -1,22 +1,26 @@
 <div class="container">
   <div class="row">
-    <%= render 'searches/recipe_search' %>
+    <% if @range == "Recipe" %>
+      <%= render 'searches/recipe_search' %>
+    <% else %>
+      <%= render 'searches/restaurant_search' %>
+    <% end %>
     <div class="col-12 text-right ml-auto">
-      <%= link_to "レシピ一覧>", recipes_path %>
+      <% if @range == "Recipe" %>
+        <%= link_to "レシピ一覧>", recipes_path %>
+      <% else %>
+        <%= link_to "食べに行ったお店一覧>", restaurants_path %>
+      <% end %>
     </div>
   </div>
   <div class="row">
     <h1 class="col-lg-8 text-center my-5 mx-auto">
-      <% if @range == "Recipe" %>
-        <%= @search_text %> "<%= @word %>" の検索結果
-      <% else %>
-        <%= @search_text %> "<%= @word %>" の検索結果
-      <% end %>
+      <%= @search_text %> "<%= @word %>" の検索結果
     </h1>
   </div>
   <% if @range == "Recipe" %>
-      <%= render 'recipes/index',recipes: @recipes %>
+      <%= render 'recipes/index',recipes: @results %>
   <% else %>
-      <%= render 'restaurants/index',restaurants: @restaurants %>
+      <%= render 'restaurants/index',restaurants: @results %>
   <% end %>
 </div>
