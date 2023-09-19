@@ -5,10 +5,16 @@ class SearchesController < ApplicationController
     @word = params[:word]
     @search = params[:search]
     if @range == "Recipe"
-      @recipes = Recipe.looks(@search, @word, current_user.id).page(params[:page])
+      recipes = Recipe.looks(@search, @word, current_user.id)
     else
       @restaurants = current_user.restaurants.looks(@search, @word)
     end
+    
+    recipes = params[:latest] ? recipes.latest : recipes
+    recipes = params[:old] ? recipes.old : recipes
+    recipes = params[:star_count] ? recipes.star_count : recipes
+    
+    @recipes = recipes.page(params[:page])
     
     search_text_mapping = {
       "name" => "レシピ名",

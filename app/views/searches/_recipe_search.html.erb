@@ -3,7 +3,9 @@
     <%= f.text_field :word %>
     <%= f.hidden_field :range, :value => 'Recipe' %>
     <%= f.select :search, options_for_select([["レシピ名","name"], ["投稿者名","poster_name"], ["調理時間","cook_time"], ["費用","cost"], ["材料名","foodstuff_name"]]) %>
-    <%= f.submit "検索", class: "btn-sm btn-primary" %>
+    <%= button_tag type: "submit", class:"btn btn-default" do %>
+      <i class="fa-solid fa-magnifying-glass"></i>
+    <% end %>
   <% end %>
 </div>
 <div>

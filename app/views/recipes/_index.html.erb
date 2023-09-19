@@ -7,10 +7,20 @@
           <% link_params[:category_id] = params[:category_id] %>
         <% elsif params[:user_id] %>
           <% link_params[:user_id] = current_user.id %>
+        <% elsif params[:word] %>
+          <% link_params[:word] = params[:word] %>
+          <% link_params[:range] = 'Recipe' %>
+          <% link_params[:search] = params[:search] %>
         <% end %>
-        <%= link_to '新しい順', recipes_path(link_params.merge(latest: "true")) %>
-        |<%= link_to '古い順', recipes_path(link_params.merge(old: "true")) %>
-        |<%= link_to '評価の高い順', recipes_path(link_params.merge(star_count: "true")) %>
+        <% if params[:word] %>
+          <%= link_to '新しい順', search_path(link_params.merge(latest: "true")) %>
+          |<%= link_to '古い順', search_path(link_params.merge(old: "true")) %>
+          |<%= link_to '評価の高い順', search_path(link_params.merge(star_count: "true")) %>
+        <% else %>
+          <%= link_to '新しい順', recipes_path(link_params.merge(latest: "true")) %>
+          |<%= link_to '古い順', recipes_path(link_params.merge(old: "true")) %>
+          |<%= link_to '評価の高い順', recipes_path(link_params.merge(star_count: "true")) %>
+        <% end %>
       <% end %>
     </div>
   </div>

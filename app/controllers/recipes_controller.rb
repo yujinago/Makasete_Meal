@@ -57,6 +57,8 @@ class RecipesController < ApplicationController
 
   def index
     @recipe_categories = RecipeCategory.all
+    @recipe_all = current_user.recipes.all
+    recipes = current_user.recipes
     if params[:category_id]
       if params[:category_id].blank?
         flash[:alert] = "カテゴリーを選択してください"
@@ -70,9 +72,6 @@ class RecipesController < ApplicationController
       favorites = RecipeFavorite.where(user_id: current_user.id).pluck(:recipe_id)
       @favorite_recipe_all = Recipe.where(id: favorites)
       recipes = Recipe.where(id: favorites)
-    else
-      @recipe_all = current_user.recipes.all
-      recipes = current_user.recipes
     end
     
     recipes = params[:latest] ? recipes.latest : recipes
