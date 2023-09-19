@@ -127,6 +127,8 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurant_genres = RestaurantGenre.all
+    @restaurant_all = current_user.restaurants.all
+    restaurants = current_user.restaurants
     if params[:genre_id]
       if params[:genre_id].blank?
         flash[:alert] = "ジャンルを選択してください"
@@ -140,9 +142,6 @@ class RestaurantsController < ApplicationController
       favorites = RestaurantFavorite.where(user_id: current_user.id).pluck(:restaurant_id)
       @favorite_restaurant_all = Restaurant.where(id: favorites)
       restaurants = Restaurant.where(id: favorites)
-    else
-      @restaurant_all = current_user.restaurants.all
-      restaurants = current_user.restaurants
     end
       
     restaurants = params[:latest] ? restaurants.latest : restaurants

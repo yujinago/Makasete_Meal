@@ -25,5 +25,17 @@ class Restaurant < ApplicationRecord
   def favorited_by?(user)
     !restaurant_favorite.nil? && restaurant_favorite.user_id == user.id
   end
+  
+  def self.looks(search, word, user_id)
+    if search == "name"
+      Restaurant.where("name LIKE? AND user_id = ?", "%#{word}%", user_id)
+    elsif search == "address"
+      Restaurant.where("address LIKE? AND user_id = ?", "%#{word}%", user_id)
+    elsif search == "open_time"
+      Restaurant.where("open_time LIKE? AND user_id = ?", "%#{word}%", user_id)
+    elsif search == "legular_holiday"
+      Restaurant.where("legular_holiday LIKE? AND user_id = ?", "%#{word}%", user_id)
+    end
+  end
 
 end

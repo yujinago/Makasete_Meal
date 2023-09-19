@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-12 d-flex">
+    <div class="mr-auto">
+      <% if recipes.present? %>
+        <% link_params = {} %>
+        <% if params[:category_id] %>
+          <% link_params[:category_id] = params[:category_id] %>
+        <% elsif params[:user_id] %>
+          <% link_params[:user_id] = current_user.id %>
+        <% elsif params[:word] %>
+          <% link_params[:word] = params[:word] %>
+          <% link_params[:range] = 'Recipe' %>
+          <% link_params[:search] = params[:search] %>
+        <% end %>
+        <% if params[:word] %>
+          <%= link_to '新しい順', search_path(link_params.merge(latest: "true")) %>
+          |<%= link_to '古い順', search_path(link_params.merge(old: "true")) %>
+          |<%= link_to '評価の高い順', search_path(link_params.merge(star_count: "true")) %>
+        <% else %>
+          <%= link_to '新しい順', recipes_path(link_params.merge(latest: "true")) %>
+          |<%= link_to '古い順', recipes_path(link_params.merge(old: "true")) %>
+          |<%= link_to '評価の高い順', recipes_path(link_params.merge(star_count: "true")) %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% unless recipes.present? %>
+  <h2 class="text-center mt-5">まだレシピを保存していません。</h2>
+  <div class="text-center mt-3">
+    <%= link_to "料理を作る", new_recipe_path, class:"btn btn-outline-secondary" %>
+  </div>
+<% end %>
+<div class="row">
+  <div class="col-12">
+    <table class='table'> 
+      <tbody>
+        <% recipes.each do |recipe| %>
+          <tr>
+            <td><%= image_tag recipe.get_recipe_image(500, 500), size: "100x100", class: "rounded" %></td>
+            <td><%= link_to recipe.name, recipe_path(recipe.id) %></td>
+            <td><%= recipe.recipe_category.name %></td>
+            <td id="favorite-btn_<%= recipe.id %>">
+              <%= render 'recipe_favorites/favorite-btn', recipe: recipe %>
+            </td>
+            <td><%= render 'recipes/show_rate', recipe: recipe %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center mt-3">
+      <%= paginate recipes %>
+    </div>
+  </div>
+</div>
