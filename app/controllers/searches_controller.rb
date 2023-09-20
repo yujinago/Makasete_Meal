@@ -16,7 +16,7 @@ class SearchesController < ApplicationController
     results = results.star_count if params[:star_count]
     
     @results = results.page(params[:page])
-    
+    @result_all = results.all
     # recipes = params[:latest] ? recipes.latest : recipes
     # recipes = params[:old] ? recipes.old : recipes
     # recipes = params[:star_count] ? recipes.star_count : recipes

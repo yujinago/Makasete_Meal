@@ -15,15 +15,14 @@
     <header class="border-bottom">
       <%= render 'layouts/header'%>
     </header>
-    <div class = "container px-5 px-sm-0">
-      <div class = "row">
-        <div class = "col-md-8 mt-2">
+    <div class="container px-5 px-sm-0">
+      <div class="row">
+        <div class="col-md-8 mt-2 mx-auto text-center">
           <% if flash[:notice] %>
             <div class="alert alert-success">
               <%= flash[:notice] %>
             </div>
-          <% end %>
-          <% if flash[:alert] %>
+          <% elsif flash[:alert] %>
             <div class="alert alert-danger">
               <%= flash[:alert] %>
             </div>

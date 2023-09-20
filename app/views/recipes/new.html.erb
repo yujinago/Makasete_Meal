@@ -8,14 +8,14 @@
         <div class="form-group">
           <%= f.radio_button :select_recipe_category_id, 0, checked: true %>
           <%= f.label :recipe_category_id, "カテゴリーを選択する", style: "margin-right:62px;" %>
-          <%= f.collection_select :recipe_category_id, @recipe_categories, :category_id, :name, include_blank: "--選択してください--" %>
+          <%= f.collection_select :recipe_category_id, @recipe_categories, :category_id, :name, include_blank: "--選択してください--", class: "form-control" %>
         </div>
         <div class="form-group">
           <%= f.radio_button :select_recipe_category_id, 1 %>
           <%= f.label :recipe_category_id, "完全にお任せする" %>
         </div>
         <div class="form-group text-center">
-          <%= f.submit "まかせてみる", class:"btn btn-outline-secondary" %>
+          <%= f.submit "まかせてみる", class:"btn btn-outline-info" %>
         </div>
       <% end %>
     </div>

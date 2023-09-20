@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-lg-4 my-3">
       <div class="text-center">
-      <%= image_tag @recipe_info.get_recipe_image(500, 500), size: "300x300", class: "rounded" %>
+      <%= image_tag @recipe_info.get_recipe_image(500, 500), size: "275x275", class: "rounded" %>
       </div>
     </div>
     <div class="col-lg-8 my-3 mx-auto">
@@ -14,32 +14,32 @@
       </div>
       <div class="border-right border-bottom border-left border-dark">
         <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">レシピURL&emsp;:</p>
-          <p class="my-auto ml-md-2"><a href="<%= @recipe['url'] %>">楽天レシピで詳細を確認する</a></p>
+          <p class="my-auto ml-1 font-weight-bold">レシピURL&emsp;:</p>
+          <p class="my-auto ml-2"><a href="<%= @recipe['url'] %>">楽天レシピで詳細を確認する</a></p>
         </div>
         <div class="d-md-flex border-bottom">
-          <p class="my-auto  font-weight-bold">カテゴリー名:</p>
-          <p class="my-auto  ml-md-2"><%= @recipe_category.name %></p>
+          <p class="my-auto ml-1 font-weight-bold">カテゴリー名:</p>
+          <p class="my-auto ml-2"><%= @recipe_category.name %></p>
         </div>
         <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">レシピ投稿者:</p>
-          <p class="my-auto ml-md-2"><%= @recipe['poster_name'] %></p>
+          <p class="my-auto ml-1 font-weight-bold">レシピ投稿者:</p>
+          <p class="my-auto ml-2"><%= @recipe['poster_name'] %></p>
         </div>
         <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">調理時間目安:</p>
-          <p class="my-auto ml-md-2"><%= @recipe['cook_time'] %></p>
+          <p class="my-auto ml-1 font-weight-bold">調理時間目安:</p>
+          <p class="my-auto ml-2"><%= @recipe['cook_time'] %></p>
         </div>
         <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">費用の目安&emsp;:</p>
-          <p class="my-auto ml-md-2"><%= @recipe['cost'] %></p>
+          <p class="my-auto ml-1 font-weight-bold">費用の目安&emsp;:</p>
+          <p class="my-auto ml-2"><%= @recipe['cost'] %></p>
         </div>
-        <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">材料名の一覧:</p>
-          <p class="my-auto ml-md-2"><%= @foodstuff_name_format %></p>
+        <div class="border-bottom">
+          <p class="my-auto ml-1 font-weight-bold">材料名の一覧:</p>
+          <p class="my-auto ml-2"><%= @foodstuff_name_format %></p>
         </div>
       </div>
       <div class="text-center pt-5">
-        <%= link_to "レビューする", edit_recipe_path(@recipe['id']), class: "btn btn-outline-secondary" %>
+        <%= link_to "レビューする", edit_recipe_path(@recipe['id']), class: "btn btn-outline-info" %>
       </div>
     </div>
   </div>

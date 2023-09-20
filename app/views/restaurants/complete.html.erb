@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-lg-4 my-3">
       <div class="text-center">
-      <%= image_tag @restaurant_info.get_restaurant_image(500, 500), size: "300x300", class: "rounded" %>
+      <%= image_tag @restaurant_info.get_restaurant_image(500, 500), size: "275x275", class: "rounded" %>
       </div>
     </div>
     <div class="col-lg-8 my-3 mx-auto">
@@ -14,23 +14,23 @@
       </div>
       <div class="border-right border-bottom border-left border-dark">
         <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">店舗URL&emsp;&emsp;:</p>
+          <p class="my-auto ml-1 font-weight-bold">店舗URL&emsp;&emsp;:</p>
           <p class="my-auto ml-md-2"><a href="<%= @restaurant['url'] %>">ホットペッパーグルメで詳細を確認する</a></p>
         </div>
         <div class="d-md-flex border-bottom">
-          <p class="my-auto  font-weight-bold">ジャンル名:</p>
-          <p class="my-auto  ml-md-2"><%= @restaurant_genre.name %></p>
+          <p class="my-auto ml-1 font-weight-bold">ジャンル名:</p>
+          <p class="my-auto ml-md-2"><%= @restaurant_genre.name %></p>
         </div>
         <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">住所&emsp;&emsp;&emsp;:</p>
+          <p class="my-auto ml-1 font-weight-bold">住所&emsp;&emsp;&emsp;:</p>
           <p class="my-auto ml-md-2"><%= @restaurant['address'] %></p>
         </div>
         <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">営業時間&emsp;:</p>
+          <p class="my-auto ml-1 font-weight-bold">営業時間&emsp;:</p>
           <p class="my-auto ml-md-2"><%= @restaurant['open_time'] %></p>
         </div>
         <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">定休日&emsp;&emsp;:</p>
+          <p class="my-auto ml-1 font-weight-bold">定休日&emsp;&emsp;:</p>
           <p class="my-auto ml-md-2"><%= @restaurant['legular_holiday'] %></p>
         </div>
       </div>
