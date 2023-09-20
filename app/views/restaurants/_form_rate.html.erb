@@ -1,7 +1,7 @@
-<div class="form-group">
-  <%= f.label :star %>
+<div class="form-group d-flex">
+  <h2 class="mr-4"><%= f.label :star, "星" %></h2>
   <%= f.hidden_field :star, id: :restaurant_star, class: 'form-control' %>
-  <div id="edit_raty"></div>
+  <div id="edit_raty" class="mt-1"></div>
 </div>
 <script>
   $(document).on('turbolinks:load', function() {

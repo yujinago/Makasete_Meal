@@ -1,9 +1,10 @@
 @use '~bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500&display=swap');
+
+// 文字スタイル
 body {
   font-family: 'Zen Maru Gothic', sans-serif;
 }
-
 
 // Top画面のイラストホバー時のスタイル
 .hover-zoom {
@@ -20,4 +21,9 @@ body {
   right: 5px;
   bottom: 5px;
   align-items: flex-end;
+}
+
+// aboutの追加スタイル
+.about {
+
 }

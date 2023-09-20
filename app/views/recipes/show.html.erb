@@ -19,38 +19,13 @@
             <%= render 'recipe_favorites/favorite-btn', recipe: @recipe %>
           </div>
         </div>
+        <p class="text-center">
+          【画像提供：楽天レシピ】
+        </p>
       </div>
     </div>
     <div class="col-lg-8 my-3 mx-auto">
-      <div class="border border-dark p-2 text-center font-weight-bold">
-        <p class="my-auto"><%= @recipe.name %></p>
-      </div>
-      <div class="border-right border-bottom border-left border-dark">
-        <div class="d-md-flex border-bottom">
-          <p class="my-auto ml-1 font-weight-bold">レシピURL&emsp;:</p>
-          <p class="my-auto ml-2"><a href="<%= @recipe.url %>">楽天レシピで詳細を確認する</a></p>
-        </div>
-        <div class="d-md-flex border-bottom">
-          <p class="my-auto ml-1 font-weight-bold">カテゴリー名:</p>
-          <p class="my-auto ml-2"><%= @recipe.recipe_category.name %></p>
-        </div>
-        <div class="d-md-flex border-bottom">
-          <p class="my-auto ml-1 font-weight-bold">レシピ投稿者:</p>
-          <p class="my-auto ml-2"><%= @recipe.poster_name %></p>
-        </div>
-        <div class="d-md-flex border-bottom">
-          <p class="my-auto ml-1 font-weight-bold">調理時間目安:</p>
-          <p class="my-auto ml-2"><%= @recipe.cook_time %></p>
-        </div>
-        <div class="d-md-flex border-bottom">
-          <p class="my-auto ml-1 font-weight-bold">費用の目安&emsp;:</p>
-          <p class="my-auto ml-2"><%= @recipe.cost %></p>
-        </div>
-        <div class="border-bottom">
-          <p class="my-auto ml-1 font-weight-bold">材料名の一覧:</p>
-          <p class="my-auto ml-2"><%= @recipe.foodstuff_name_format %></p>
-        </div>
-      </div>
+      <%= render 'recipes/recipe_info', recipe: @recipe %>
     </div>
   </div>
   <div class="row">

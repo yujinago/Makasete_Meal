@@ -2,7 +2,7 @@
   <div class="row">
     <%= render 'searches/recipe_search' %>
     <div class="col-12 text-right ml-auto">
-      <% if params[:category_id] || params[:user_id] || params[:word] %>
+      <% if params[:category_id] || params[:user_id] %>
         <%= link_to recipes_path do %>
           レシピ一覧へ
           <i class="fa-regular fa-hand-point-right"></i>

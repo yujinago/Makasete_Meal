@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="col-12 d-flex">
-    <div class="mr-auto">
+  <div class="col-12 d-md-flex">
+    <div class="mr-md-auto">
       <% if recipes.present? %>
         <% link_params = {} %>
         <% if params[:category_id] %>
@@ -23,6 +23,9 @@
         <% end %>
       <% end %>
     </div>
+    <% if recipes.present? %>
+      <p>【画像提供：楽天レシピ】</p>
+    <% end %>
   </div>
 </div>
 <% unless recipes.present? %>

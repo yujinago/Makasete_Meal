@@ -11,23 +11,15 @@ class SearchesController < ApplicationController
       results = Restaurant.looks(@search, @word, current_user.id)
     end
     
+    # 順番指定した際のresults
     results = results.latest if params[:latest]
     results = results.old if params[:old]
     results = results.star_count if params[:star_count]
     
     @results = results.page(params[:page])
     @result_all = results.all
-    # recipes = params[:latest] ? recipes.latest : recipes
-    # recipes = params[:old] ? recipes.old : recipes
-    # recipes = params[:star_count] ? recipes.star_count : recipes
-    
-    # @recipes = recipes.page(params[:page])
-    
-    # restaurants = params[:latest] ? restaurants.latest : restaurants
-    # restaurants = params[:old] ? restaurants.old : restaurants
-    # restaurants = params[:star_count] ? restaurants.star_count : restaurants
-    
-    # @restaurants = restaurants.page(params[:page])
+
+    # 検索時の題名用
     if @range == "Recipe"
       search_text_mapping = {
         "name" => "レシピ名",
