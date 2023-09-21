@@ -2,6 +2,8 @@ class SearchesController < ApplicationController
   def search
     @recipe_categories = RecipeCategory.all
     @restaurant_genres = RestaurantGenre.all
+    
+    # キーワード検索
     @range = params[:range]
     @word = params[:word]
     @search = params[:search]

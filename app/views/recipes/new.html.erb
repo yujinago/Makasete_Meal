@@ -8,7 +8,7 @@
         <div class="form-group">
           <%= f.radio_button :select_recipe_category_id, 0, checked: true %>
           <%= f.label :recipe_category_id, "カテゴリーを選択する", style: "margin-right:62px;" %>
-          <%= f.collection_select :recipe_category_id, @recipe_categories, :category_id, :name, include_blank: "--選択してください--", class: "form-control" %>
+          <%= f.collection_select :recipe_category_id, @recipe_categories, :category_id, :name, include_blank: "--選択してください--" %>
         </div>
         <div class="form-group">
           <%= f.radio_button :select_recipe_category_id, 1 %>
