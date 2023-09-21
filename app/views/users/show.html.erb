@@ -30,8 +30,8 @@
     <div class="col-md-8 mt-5 mx-auto">
       <div class="d-lg-flex justify-content-between">
         <h2>作ったレシピ&emsp;&emsp;</h2>
-        <%= link_to "お気に入り", recipes_path(user_id: current_user.id), class: "btn btn-outline-secondary mb-3 mr-5" %>
-        <%= link_to "一覧を見る", recipes_path, class: "btn btn-outline-secondary mb-3 mr-5" %>
+        <%= link_to "お気に入り", recipes_path(user_id: current_user.id), class: "btn btn-outline-warning mb-3 mr-5" %>
+        <%= link_to "一覧を見る", recipes_path, class: "btn btn-outline-info mb-3 mr-5" %>
       </div>
     </div>
   </div>
@@ -39,8 +39,8 @@
     <div class="col-md-8 mt-5 mx-auto">
       <div class="d-lg-flex justify-content-between">
         <h2>食べに行ったお店</h2>
-        <%= link_to "お気に入り", restaurants_path(user_id: current_user.id), class: "btn btn-outline-secondary mb-3 mr-5" %>
-        <%= link_to "一覧を見る", restaurants_path, class: "btn btn-outline-secondary mb-3 mr-5" %>
+        <%= link_to "お気に入り", restaurants_path(user_id: current_user.id), class: "btn btn-outline-warning mb-3 mr-5" %>
+        <%= link_to "一覧を見る", restaurants_path, class: "btn btn-outline-info mb-3 mr-5" %>
       </div>
     </div>
   </div>
