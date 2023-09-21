@@ -5,39 +5,14 @@
   <div class="row">
     <div class="col-lg-4 my-3">
       <div class="text-center">
-      <%= image_tag @recipe_image, size: "300x300", class: "rounded" %>
+      <%= image_tag @recipe_image, size: "275x275", class: "rounded" %>
       </div>
+      <p class="text-center">
+        【画像提供：楽天レシピ】
+      </p>
     </div>
     <div class="col-lg-8 my-3 mx-auto">
-      <div class="border border-dark p-2 text-center font-weight-bold">
-        <p class="my-auto"><%= @recipe.name %></p>
-      </div>
-      <div class="border-right border-bottom border-left border-dark">
-        <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">レシピURL&emsp;:</p>
-          <p class="my-auto ml-md-2"><a href="<%= @recipe.url %>">楽天レシピで詳細を確認する</a></p>
-        </div>
-        <div class="d-md-flex border-bottom">
-          <p class="my-auto  font-weight-bold">カテゴリー名:</p>
-          <p class="my-auto  ml-md-2"><%= @recipe.recipe_category.name %></p>
-        </div>
-        <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">レシピ投稿者:</p>
-          <p class="my-auto ml-md-2"><%= @recipe.poster_name %></p>
-        </div>
-        <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">調理時間目安:</p>
-          <p class="my-auto ml-md-2"><%= @recipe.cook_time %></p>
-        </div>
-        <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">費用の目安&emsp;:</p>
-          <p class="my-auto ml-md-2"><%= @recipe.cost %></p>
-        </div>
-        <div class="d-md-flex border-bottom">
-          <p class="my-auto font-weight-bold">材料名の一覧:</p>
-          <p class="my-auto ml-md-2"><%= @recipe.foodstuff_name_format %></p>
-        </div>
-      </div>
+      <%= render 'recipes/recipe_info', recipe: @recipe %>
       <div class="text-center pt-5">
       <%= form_with model: @recipe, url: recipes_path, method: :post do |f| %>
         <%= f.hidden_field :user_id, :value => current_user.id %>
@@ -49,7 +24,7 @@
         <%= f.hidden_field :cost, :value => @recipe.cost %>
         <%= f.hidden_field :foodstuff_name, :value => @recipe.foodstuff_name %>
         <%= f.hidden_field :recipe_image, :value => @recipe_image %>
-        <%= f.submit "このレシピにする", class: "btn btn-outline-secondary" %>
+        <%= f.submit "このレシピにする", class: "btn btn-outline-info" %>
       <% end %>
       </div>
     </div>

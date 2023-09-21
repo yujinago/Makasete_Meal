@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
-      flash[:notice] = "登録情報を変更しました"
+      flash[:notice] = "登録情報を変更しました。"
       redirect_to users_mypage_path
     else
       render :edit
@@ -26,10 +26,11 @@ class UsersController < ApplicationController
     @user = current_user
     @user.destroy
     if @user.guest_user?
-      flash[:notice] = "ゲストユーザーでログアウトしました"
+      flash[:notice] = "ゲストユーザーでログアウトしました。"
     else
-      flash[:notice] = "退会処理を実行しました"
+      flash[:notice] = "退会処理を実行しました。"
     end
+    
     redirect_to root_path
   end
   
@@ -46,4 +47,5 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
   end  
+  
 end

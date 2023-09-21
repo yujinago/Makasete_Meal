@@ -12,6 +12,7 @@ class User < ApplicationRecord
   validates :nickname, presence: true, length: { maximum: 10 }
   validates :email, presence: true, uniqueness: true
   
+  # ゲストログインの際、毎回メールアドレス変更（複数人で使える）
   GUEST_USER_EMAIL = "guest_#{SecureRandom.hex(3)}@example.com"
   
   def self.guest

@@ -3,9 +3,15 @@
     <%= render 'searches/restaurant_search' %>
     <div class="col-12 text-right ml-auto">
       <% if params[:genre_id] || params[:user_id] %>
-        <%= link_to "食べに行ったお店一覧>", restaurants_path %>
+        <%= link_to restaurants_path do %>
+          お店一覧へ
+          <i class="fa-regular fa-hand-point-right"></i>
+        <% end %>
       <% else %>
-        <%= link_to "お気に入り一覧>", restaurants_path(user_id: current_user.id) %>
+        <%= link_to restaurants_path(user_id: current_user.id) do %>
+          お気に入り一覧へ
+          <i class="fa-regular fa-hand-point-right"></i>
+        <% end %>
       <% end %>
     </div>
   </div>

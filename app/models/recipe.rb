@@ -20,6 +20,7 @@ class Recipe < ApplicationRecord
     foodstuff_name_array.join(', ')
   end
   
+  # 画像のリサイズ
   def get_recipe_image(width, height)
     unless recipe_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -28,10 +29,12 @@ class Recipe < ApplicationRecord
     recipe_image.variant(resize_to_limit: [width, height]).processed
   end
   
+  # ユーザーがお気に入りしているか
   def favorited_by?(user)
     !recipe_favorite.nil? && recipe_favorite.user_id == user.id
   end
   
+  # キーワード検索
   def self.looks(search, word, user_id)
     if search == "name"
       Recipe.where("name LIKE? AND user_id = ?", "%#{word}%", user_id)

@@ -1,5 +1,7 @@
 class Restaurant < ApplicationRecord
+  # カラムの代わりに紐付け
   attr_accessor :restaurant_middle_area
+  
   has_one_attached :restaurant_image
   belongs_to :user
   belongs_to :restaurant_genre
@@ -14,6 +16,7 @@ class Restaurant < ApplicationRecord
   scope :old, -> {order(created_at: :asc)}
   scope :star_count, -> {order(star: :desc)}
   
+  # 画像のリサイズ
   def get_restaurant_image(width, height)
     unless restaurant_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -22,10 +25,12 @@ class Restaurant < ApplicationRecord
     restaurant_image.variant(resize_to_limit: [width, height]).processed
   end
   
+  # ユーザーがお気に入りしているか
   def favorited_by?(user)
     !restaurant_favorite.nil? && restaurant_favorite.user_id == user.id
   end
   
+  # キーワード検索
   def self.looks(search, word, user_id)
     if search == "name"
       Restaurant.where("name LIKE? AND user_id = ?", "%#{word}%", user_id)

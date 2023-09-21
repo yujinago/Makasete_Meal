@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="col-12 d-flex">
-    <div class="mr-auto">
+  <div class="col-12 d-md-flex">
+    <div class="mr-md-auto">
       <% if restaurants.present? %>
         <% link_params = {} %>
         <% if params[:genre_id] %>
@@ -9,45 +9,50 @@
           <% link_params[:user_id] = current_user.id %>
         <% elsif params[:word] %>
           <% link_params[:word] = params[:word] %>
-          <% link_params[:range] = 'Restaurant' %>
+          <% link_params[:range] = "Restaurant" %>
           <% link_params[:search] = params[:search] %>
         <% end %>
         <% if params[:word] %>
-          <%= link_to '新しい順', search_path(link_params.merge(latest: "true")) %>
-          |<%= link_to '古い順', search_path(link_params.merge(old: "true")) %>
-          |<%= link_to '評価の高い順', search_path(link_params.merge(star_count: "true")) %>
+          <%= link_to "新しい順", search_path(link_params.merge(latest: "true")) %>
+          |<%= link_to "古い順", search_path(link_params.merge(old: "true")) %>
+          |<%= link_to "評価の高い順", search_path(link_params.merge(star_count: "true")) %>
         <% else %>
-          <%= link_to '新しい順', restaurants_path(link_params.merge(latest: "true")) %>
-          |<%= link_to '古い順', restaurants_path(link_params.merge(old: "true")) %>
-          |<%= link_to '評価の高い順', restaurants_path(link_params.merge(star_count: "true")) %>
+          <%= link_to "新しい順", restaurants_path(link_params.merge(latest: "true")) %>
+          |<%= link_to "古い順", restaurants_path(link_params.merge(old: "true")) %>
+          |<%= link_to "評価の高い順", restaurants_path(link_params.merge(star_count: "true")) %>
         <% end %>
       <% end %>
     </div>
+    <% if restaurants.present? %>
+      <p>【画像提供：ホットペッパー グルメ】</p>
+    <% end %>
   </div>
 </div>
 <% unless restaurants.present? %>
   <h2 class="text-center mt-5">まだお店を保存していません。</h2>
   <div class="text-center mt-3">
-    <%= link_to "お店を探す", new_restaurant_path, class:"btn btn-outline-secondary" %>
+    <%= link_to "お店を探す", new_restaurant_path, class:"btn btn-outline-info" %>
   </div>
 <% end %>
 <div class="row">
   <div class="col-12">
-    <table class='table'> 
-      <tbody>
-        <% restaurants.each do |restaurant| %>
-          <tr>
-            <td><%= image_tag restaurant.get_restaurant_image(500, 500), size: "100x100", class: "rounded" %></td>
-            <td><%= link_to restaurant.name, restaurant_path(restaurant.id) %></td>
-            <td><%= restaurant.restaurant_genre.name %></td>
-            <td id="favorite-btn_<%= restaurant.id %>">
-              <%= render 'restaurant_favorites/favorite-btn', restaurant: restaurant %>
-            </td>
-            <td><%= render 'restaurants/show_rate', restaurant: restaurant %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table">
+        <tbody>
+          <% restaurants.each do |restaurant| %>
+            <tr>
+              <td class="align-middle"><%= image_tag restaurant.get_restaurant_image(500, 500), size: "50x50", class: "rounded" %></td>
+              <td class="align-middle"><%= link_to restaurant.name, restaurant_path(restaurant.id), class: "text-dark" %></td>
+              <td class="align-middle"><%= restaurant.restaurant_genre.name %></td>
+              <td id="favorite-btn_<%= restaurant.id %>" class="align-middle">
+                <%= render 'restaurant_favorites/favorite-btn', restaurant: restaurant %>
+              </td>
+              <td class="align-middle"><%= render 'restaurants/show_rate', restaurant: restaurant %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
     <div class="d-flex justify-content-center mt-3">
       <%= paginate restaurants %>
     </div>

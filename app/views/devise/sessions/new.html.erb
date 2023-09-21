@@ -1,18 +1,21 @@
 <div class="container">
   <div class="row">
-    <div class="col-7 mx-auto">
-      <h1 class="my-3 text-center">ログイン</h4>
+    <div class="col-md-7 mx-auto">
+      <h1 class="my-5 text-center">ログイン</h1>
       <%= form_with model: @user, url: user_session_path do |f| %>
-        <table class="table table-borderless">
-          <!-- mdより下の画面幅の時に表示 -->
-          <%= render 'devise/sessions/under-md', f: f %>
-          <!-- md以上の画面幅の時に表示 -->
-          <%= render 'devise/sessions/md-or-over', f: f %>
-        </table>
+        <div class="d-sm-flex justify-content-between mt-2">
+          <h5>メールアドレス:</h5>
+          <div class="text-center"><%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@example.com" %></div>
+        </div>
+        <div class="d-sm-flex justify-content-between mt-2">
+          <h5>パスワード:</h5>
+          <div class="text-center"><%= f.password_field :password, autocomplete: "new-password" %></div>
+        </div>
+        <div class="text-center mt-4"><%= f.submit "ログイン", class: "btn btn-outline-info" %></div>
       <% end %>
     </div>
   </div>
-  <div class="row justify-content-md-center">
+  <div class="row justify-content-md-center mt-5">
     <div class="col-md-4 my-3 text-center">
       <h4 class="mb-3">会員登録がお済みでない方</h4>
       <%= render "devise/shared/links" %>から新規登録を行ってください。
