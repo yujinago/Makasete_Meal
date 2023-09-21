@@ -91,20 +91,25 @@ class RestaurantsController < ApplicationController
       result_all["results"]["shop"].each {|n| results << n}
       
       result = results.sample
-      result_hash = {
-        user_id: current_user.id,
-        restaurant_genre_id: restaurant_genre.id,
-        name: result["name"],
-        url: result["urls"]["pc"],
-        address: result["address"],
-        open_time: result["open"],
-        legular_holiday: result["close"]
-      }
-      @restaurant_image = result["photo"]["pc"]["l"]
-      @restaurant_large_area = result["large_area"]["code"]
-      @restaurant_middle_area = result["middle_area"]["code"]
-      @restaurant = Restaurant.new(result_hash)
-    
+      
+      if result.nil?
+        flash[:alert] = "指定された条件のお店は見つかりませんでした。条件を変更してください。"
+        redirect_to new_restaurant_path
+      else
+        result_hash = {
+          user_id: current_user.id,
+          restaurant_genre_id: restaurant_genre.id,
+          name: result["name"],
+          url: result["urls"]["pc"],
+          address: result["address"],
+          open_time: result["open"],
+          legular_holiday: result["close"]
+        }
+        @restaurant_image = result["photo"]["pc"]["l"]
+        @restaurant_large_area = result["large_area"]["code"]
+        @restaurant_middle_area = result["middle_area"]["code"]
+        @restaurant = Restaurant.new(result_hash)
+      end
   end
   
   def create

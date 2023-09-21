@@ -36,21 +36,23 @@
 <% end %>
 <div class="row">
   <div class="col-12">
-    <table class='table'> 
-      <tbody>
-        <% restaurants.each do |restaurant| %>
-          <tr>
-            <td class="align-middle"><%= image_tag restaurant.get_restaurant_image(500, 500), size: "50x50", class: "rounded" %></td>
-            <td class="align-middle"><%= link_to restaurant.name, restaurant_path(restaurant.id), class: "text-dark" %></td>
-            <td class="align-middle"><%= restaurant.restaurant_genre.name %></td>
-            <td id="favorite-btn_<%= restaurant.id %>" class="align-middle">
-              <%= render 'restaurant_favorites/favorite-btn', restaurant: restaurant %>
-            </td>
-            <td class="align-middle"><%= render 'restaurants/show_rate', restaurant: restaurant %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table">
+        <tbody>
+          <% restaurants.each do |restaurant| %>
+            <tr>
+              <td class="align-middle"><%= image_tag restaurant.get_restaurant_image(500, 500), size: "50x50", class: "rounded" %></td>
+              <td class="align-middle"><%= link_to restaurant.name, restaurant_path(restaurant.id), class: "text-dark" %></td>
+              <td class="align-middle"><%= restaurant.restaurant_genre.name %></td>
+              <td id="favorite-btn_<%= restaurant.id %>" class="align-middle">
+                <%= render 'restaurant_favorites/favorite-btn', restaurant: restaurant %>
+              </td>
+              <td class="align-middle"><%= render 'restaurants/show_rate', restaurant: restaurant %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
     <div class="d-flex justify-content-center mt-3">
       <%= paginate restaurants %>
     </div>

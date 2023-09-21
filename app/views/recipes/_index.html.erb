@@ -36,21 +36,23 @@
 <% end %>
 <div class="row">
   <div class="col-12">
-    <table class='table'> 
-      <tbody>
-        <% recipes.each do |recipe| %>
-          <tr>
-            <td class="align-middle"><%= image_tag recipe.get_recipe_image(500, 500), size: "50x50", class: "rounded" %></td>
-            <td class="align-middle"><%= link_to recipe.name, recipe_path(recipe.id), class: "text-dark" %></td>
-            <td class="align-middle"><%= recipe.recipe_category.name %></td>
-            <td id="favorite-btn_<%= recipe.id %>" class="align-middle">
-              <%= render 'recipe_favorites/favorite-btn', recipe: recipe %>
-            </td>
-            <td class="align-middle"><%= render 'recipes/show_rate', recipe: recipe %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table"> 
+        <tbody>
+          <% recipes.each do |recipe| %>
+            <tr>
+              <td class="align-middle"><%= image_tag recipe.get_recipe_image(500, 500), size: "50x50", class: "rounded" %></td>
+              <td class="align-middle"><%= link_to recipe.name, recipe_path(recipe.id), class: "text-dark" %></td>
+              <td class="align-middle"><%= recipe.recipe_category.name %></td>
+              <td id="favorite-btn_<%= recipe.id %>" class="align-middle">
+                <%= render 'recipe_favorites/favorite-btn', recipe: recipe %>
+              </td>
+              <td class="align-middle"><%= render 'recipes/show_rate', recipe: recipe %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
     <div class="d-flex justify-content-center mt-3">
       <%= paginate recipes %>
     </div>
