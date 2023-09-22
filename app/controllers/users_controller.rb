@@ -23,9 +23,9 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    @user = current_user
-    @user.destroy
-    if @user.guest_user?
+    user = current_user
+    user.destroy
+    if user.guest_user?
       flash[:notice] = "ゲストユーザーでログアウトしました。"
     else
       flash[:notice] = "退会処理を実行しました。"

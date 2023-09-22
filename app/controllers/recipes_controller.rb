@@ -106,10 +106,10 @@ class RecipesController < ApplicationController
   end
   
   def update
-    recipe = current_user.recipes.find(params[:id])
-    if recipe.update(recipe_review_params)
+    @recipe = current_user.recipes.find(params[:id])
+    if @recipe.update(recipe_review_params)
       flash[:notice] = "レシピのレビューを変更しました。"
-      redirect_to recipe_path(recipe)
+      redirect_to recipe_path(@recipe)
     else
       render "edit"
     end
