@@ -193,10 +193,10 @@ class RestaurantsController < ApplicationController
   end
   
   def update
-    restaurant = current_user.restaurants.find(params[:id])
-    if restaurant.update(restaurant_review_params)
+    @restaurant = current_user.restaurants.find(params[:id])
+    if @restaurant.update(restaurant_review_params)
       flash[:notice] = "お店のレビューを変更しました。"
-      redirect_to restaurant_path(restaurant)
+      redirect_to restaurant_path(@restaurant)
     else
       render "edit"
     end

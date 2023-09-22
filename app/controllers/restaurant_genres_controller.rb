@@ -5,7 +5,7 @@ class RestaurantGenresController < ApplicationController
   
   def create
     # restaurantのnewに遷移する前に新しいジャンルがあれば保存
-    @restaurant_genres = []
+    restaurant_genres = []
     key = ENV['HotPepper_API_KEY']
     uri = URI.parse("http://webservice.recruit.co.jp/hotpepper/genre/v1/?key=#{key}&format=json")
     response = Net::HTTP.get_response(uri)
@@ -20,10 +20,10 @@ class RestaurantGenresController < ApplicationController
     
     result_all["results"]["genre"].each do |result|
       restaurant_genre = RestaurantGenre.new(eat(result))
-      @restaurant_genres << restaurant_genre
+      restaurant_genres << restaurant_genre
     end
     
-    @restaurant_genres.each do |restaurant_genre|
+    restaurant_genres.each do |restaurant_genre|
       unless RestaurantGenre.exists?(genre_code: restaurant_genre.genre_code)
         restaurant_genre.save
       end
