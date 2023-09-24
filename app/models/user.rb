@@ -13,17 +13,18 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   
   # ゲストログインの際、毎回メールアドレス変更（複数人で使える）
-  GUEST_USER_EMAIL = "guest_#{SecureRandom.hex(3)}@example.com"
+  GUEST_USER_PREFIX = "guest_"
   
   def self.guest
-    find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
+    guest_email = "#{GUEST_USER_PREFIX}#{SecureRandom.hex(3)}@example.com"
+    find_or_create_by!(email: guest_email) do |user|
       user.password = SecureRandom.urlsafe_base64
       user.nickname = "guestuser"
     end
   end
-  
+    
   def guest_user?
-    email == GUEST_USER_EMAIL
+    email.start_with?(GUEST_USER_PREFIX)
   end
   
 end
