@@ -138,7 +138,6 @@ class RestaurantsController < ApplicationController
     restaurant_image = params[:restaurant][:restaurant_image]
     file = URI.open(restaurant_image)
     file_name = File.basename(URI.parse(restaurant_image).path)
-    # byebug
     restaurant.restaurant_image.attach(io: file, filename: file_name)
     
     restaurant.save
