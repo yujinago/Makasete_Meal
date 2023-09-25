@@ -4,6 +4,9 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
   
+  # devise signup時のエラー解消
+  get 'users' => redirect('/users/sign_up')
+  
   # homes
   root to: 'homes#top'
   get 'about' => 'homes#about'
