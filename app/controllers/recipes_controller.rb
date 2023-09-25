@@ -50,7 +50,6 @@ class RecipesController < ApplicationController
     recipe_image = params[:recipe][:recipe_image]
     file = URI.open(recipe_image)
     file_name = File.basename(URI.parse(recipe_image).path)
-    # byebug
     recipe.recipe_image.attach(io: file, filename: file_name)
     
     recipe.save
