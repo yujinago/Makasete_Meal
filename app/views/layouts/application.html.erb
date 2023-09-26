@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OmakaseMeal</title>
+    <title>Makasete Meal</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/<%= ENV['FontAwesome_KEY'] %>.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column vh-100">
+    <header class="border-bottom">
+      <%= render 'layouts/header' %>
+    </header>
+    <div class="container px-5 px-sm-0">
+      <div class="row">
+        <div class="col-md-8 mt-2 mx-auto text-center">
+          <% if flash[:notice] %>
+            <div class="alert alert-success">
+              <%= flash[:notice] %>
+            </div>
+          <% elsif flash[:alert] %>
+            <div class="alert alert-danger">
+              <%= flash[:alert] %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <main class="mb-auto">
     <%= yield %>
+    </main>
+    <footer class="border-top">
+      <%= render 'layouts/footer' %>
+    </footer>
   </body>
 </html>

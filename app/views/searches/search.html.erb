@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <% if @range == "Recipe" %>
+      <%= render 'searches/recipe_search' %>
+    <% else %>
+      <%= render 'searches/restaurant_search' %>
+    <% end %>
+    <div class="col-12 text-right ml-auto">
+      <% if @range == "Recipe" %>
+        <%= link_to recipes_path do %>
+          レシピ一覧へ
+          <i class="fa-regular fa-hand-point-right"></i>
+        <% end %>
+      <% else %>
+        <%= link_to restaurants_path do %>
+          お店一覧へ
+          <i class="fa-regular fa-hand-point-right"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <h1 class="col-lg-8 text-center my-5 mx-auto">
+      <%= @search_text %> 「<%= @word %>」 の検索結果(全<%= @result_all.count %>件)
+    </h1>
+  </div>
+  <% if @range == "Recipe" %>
+      <%= render 'recipes/index', recipes: @results %>
+  <% else %>
+      <%= render 'restaurants/index', restaurants: @results %>
+  <% end %>
+</div>

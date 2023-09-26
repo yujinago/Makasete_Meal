@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <h1 class="col-lg-8 text-center mt-5 mx-auto">料理を作る</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-8 mt-5 mx-auto">
+      <%= form_with model: @recipe, url: confirm_recipes_path, method: :post do |f| %>
+        <div class="form-group">
+          <%= f.radio_button :select_recipe_category_id, 0, checked: true %>
+          <%= f.label :recipe_category_id, "カテゴリーを選択する", style: "margin-right:62px;" %>
+          <%= f.collection_select :recipe_category_id, @recipe_categories, :category_id, :name, include_blank: "--選択してください--" %>
+        </div>
+        <div class="form-group">
+          <%= f.radio_button :select_recipe_category_id, 1 %>
+          <%= f.label :recipe_category_id, "完全にお任せする" %>
+        </div>
+        <div class="form-group text-center">
+          <%= f.submit "まかせてみる", class:"btn btn-outline-info" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

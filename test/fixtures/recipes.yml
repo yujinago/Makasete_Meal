@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  recipe_category_id: 1
+  name: MyString
+  url: MyString
+  poster_name: MyString
+  cook_time: MyString
+  cost: MyString
+  foodstuff_name: MyText
+  memo: MyText
+
+two:
+  user_id: 1
+  recipe_category_id: 1
+  name: MyString
+  url: MyString
+  poster_name: MyString
+  cook_time: MyString
+  cost: MyString
+  foodstuff_name: MyText
+  memo: MyText

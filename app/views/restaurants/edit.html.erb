@@ -1,0 +1,41 @@
+<div class="container">
+  <%= render 'layouts/error', error: @restaurant %>
+  <div class="row">
+    <div class="col-12 text-right ml-auto">
+      <%= link_to restaurant_path(@restaurant) do %>
+        お店詳細へ
+        <i class="fa-regular fa-hand-point-right"></i>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <h1 class="col-lg-8 text-center mt-5 mx-auto">レビュー編集</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 my-3">
+      <div class="text-center">
+      <%= image_tag @restaurant.get_restaurant_image(500, 500), size: "275x275", class: "rounded" %>
+      </div>
+      <p class="text-center">
+        【画像提供：ホットペッパー グルメ】
+      </p>
+    </div>
+    <div class="col-lg-8 my-3 mx-auto">
+      <%= render 'restaurants/restaurant_info', restaurant: @restaurant %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 my-3 mx-auto">
+      <%= form_with model: @restaurant, url: restaurant_path, method: :patch do |f| %>
+        <div class="form-group">
+          <h2><%= f.label :memo, "メモ" %></h2>
+          <%= f.text_area :memo, placeholder: "ここにメモすることができます。", size: "60x5", class: "w-100" %>
+        </div>
+        <%= render 'form_rate', f: f, restaurant: @restaurant %>
+        <div class="form-group text-right">
+          <%= f.submit "登録する", class: "btn btn-outline-info" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

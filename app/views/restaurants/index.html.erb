@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <%= render 'searches/restaurant_search' %>
+    <div class="col-12 text-right ml-auto">
+      <% if params[:genre_id] || params[:user_id] %>
+        <%= link_to restaurants_path do %>
+          お店一覧へ
+          <i class="fa-regular fa-hand-point-right"></i>
+        <% end %>
+      <% else %>
+        <%= link_to restaurants_path(user_id: current_user.id) do %>
+          お気に入り一覧へ
+          <i class="fa-regular fa-hand-point-right"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <h1 class="col-lg-8 text-center my-5 mx-auto">
+      <% if params[:genre_id] %>
+        <%= @restaurant_genre.name %>一覧(全<%= @genre_restaurant_all.count %>件)
+      <% elsif params[:user_id] %>
+        お気に入りのお店一覧(全<%= @favorite_restaurant_all.count %>件)
+      <% else %>
+        食べに行ったお店一覧(全<%= @restaurant_all.count %>件)
+      <% end %>
+    </h1>
+  </div>
+  <%= render 'restaurants/index',restaurants: @restaurants %>
+</div>

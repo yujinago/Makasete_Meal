@@ -1,0 +1,25 @@
+<div class="border border-dark p-2 text-center font-weight-bold bg-info">
+  <h4 class="my-auto text-white"><%= restaurant.name %></h4>
+</div>
+<div class="border-right border-bottom border-left border-dark">
+  <div class="d-md-flex border-bottom">
+    <h5 class="my-auto ml-1 font-weight-bold">店舗ＵＲＬ:</h5>
+    <p class="my-auto ml-2"><a href="<%= restaurant.url %>">ホットペッパーで詳細を確認する</a></p>
+  </div>
+  <div class="d-md-flex border-bottom">
+    <h5 class="my-auto ml-1 font-weight-bold">ジャンル名:</h5>
+    <p class="my-auto ml-2"><%= restaurant.restaurant_genre.name %></p>
+  </div>
+  <div class="border-bottom">
+    <h5 class="my-auto ml-1 font-weight-bold">住所:</h5>
+    <p class="my-auto ml-2"><%= restaurant.address %></p>
+  </div>
+  <div class="border-bottom">
+    <h5 class="my-auto ml-1 font-weight-bold">営業時間:</h5>
+    <p class="my-auto ml-2"><%= restaurant.open_time %></p>
+  </div>
+  <div class="border-bottom">
+    <h5 class="my-auto ml-1 font-weight-bold">定休日:</h5>
+    <p class="my-auto ml-2"><%= restaurant.legular_holiday %></p>
+  </div>
+</div>

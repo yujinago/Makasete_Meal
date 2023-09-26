@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <h1 class="col-lg-8 text-center mt-5 mx-auto">レシピ提案</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 my-3">
+      <div class="text-center">
+      <%= image_tag @recipe_image, size: "275x275", class: "rounded" %>
+      </div>
+      <p class="text-center">
+        【画像提供：楽天レシピ】
+      </p>
+    </div>
+    <div class="col-lg-8 my-3 mx-auto">
+      <%= render 'recipes/recipe_info', recipe: @recipe %>
+      <div class="text-center pt-5">
+      <%= form_with model: @recipe, url: recipes_path, method: :post do |f| %>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.hidden_field :name, :value => @recipe.name %>
+        <%= f.hidden_field :url, :value => @recipe.url %>
+        <%= f.hidden_field :recipe_category_id, :value => @recipe.recipe_category.id %>
+        <%= f.hidden_field :poster_name, :value => @recipe.poster_name %>
+        <%= f.hidden_field :cook_time, :value => @recipe.cook_time %>
+        <%= f.hidden_field :cost, :value => @recipe.cost %>
+        <%= f.hidden_field :foodstuff_name, :value => @recipe.foodstuff_name %>
+        <%= f.hidden_field :recipe_image, :value => @recipe_image %>
+        <%= f.submit "このレシピにする", class: "btn btn-outline-info" %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mt-4 mr-4">
+      <%= link_to "条件を変更する", new_recipe_path, class: "btn btn-outline-secondary" %>
+    </div>
+    <div class="mt-4 mb-4">
+      <%= form_with model: @recipe, url: confirm_recipes_path, method: :post do |f| %>
+        <%= f.hidden_field :select_recipe_category_id, :value => 0 %>
+        <%= f.hidden_field :recipe_category_id, :value => @recipe.recipe_category.category_id %>
+        <%= f.submit "同じカテゴリーで別レシピを探す", class:"btn btn-outline-secondary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

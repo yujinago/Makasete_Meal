@@ -1,0 +1,29 @@
+<div class="border border-dark p-2 text-center font-weight-bold bg-info">
+  <h4 class="my-auto text-white"><%= recipe.name %></h4>
+</div>
+<div class="border-right border-bottom border-left border-dark">
+  <div class="d-md-flex border-bottom">
+    <h5 class="my-auto ml-1 font-weight-bold">レシピＵＲＬ:</h5>
+    <p class="my-auto ml-2"><a href="<%= recipe.url %>">楽天レシピで詳細を確認する</a></p>
+  </div>
+  <div class="d-md-flex border-bottom">
+    <h5 class="my-auto ml-1  font-weight-bold">カテゴリー名:</h5>
+    <p class="my-auto ml-2"><%= recipe.recipe_category.name %></p>
+  </div>
+  <div class="d-md-flex border-bottom">
+    <h5 class="my-auto ml-1 font-weight-bold">レシピ投稿者:</h5>
+    <p class="my-auto ml-2"><%= recipe.poster_name %></p>
+  </div>
+  <div class="d-md-flex border-bottom">
+    <h5 class="my-auto ml-1 font-weight-bold">調理時間目安:</h5>
+    <p class="my-auto ml-2"><%= recipe.cook_time %></p>
+  </div>
+  <div class="d-md-flex border-bottom">
+    <h5 class="my-auto ml-1 font-weight-bold">材料費の目安:</h5>
+    <p class="my-auto ml-2"><%= recipe.cost %></p>
+  </div>
+  <div class="border-bottom">
+    <h5 class="my-auto ml-1 font-weight-bold">材料名の一覧:</h5>
+    <p class="my-auto ml-2"><%= recipe.foodstuff_name_format %></p>
+  </div>
+</div>
