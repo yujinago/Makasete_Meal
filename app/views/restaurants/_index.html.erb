@@ -35,26 +35,28 @@
   </div>
 <% end %>
 <div class="row">
-  <div class="col-12">
-    <div class="table-responsive">
-      <table class="table">
-        <tbody>
-          <% restaurants.each do |restaurant| %>
-            <tr>
-              <td class="align-middle"><%= image_tag restaurant.get_restaurant_image(500, 500), size: "50x50", class: "rounded" %></td>
-              <td class="align-middle"><%= link_to restaurant.name, restaurant_path(restaurant.id), class: "text-dark" %></td>
-              <td class="align-middle"><%= restaurant.restaurant_genre.name %></td>
-              <td id="favorite-btn_<%= restaurant.id %>" class="align-middle">
-                <%= render 'restaurant_favorites/favorite-btn', restaurant: restaurant %>
-              </td>
-              <td class="align-middle"><%= render 'restaurants/show_rate', restaurant: restaurant %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+  <% restaurants.each do |restaurant| %>
+    <div class="col-sm-6 col-lg-4 mt-3 px-1">
+      <div class="card h-100 border-0">
+        <div class="d-inline-block position-relative">
+          <%= image_tag restaurant.get_restaurant_image(500, 500), size: "275x275", class: "w-100 rounded" %>
+          <div id="favorite-btn_<%= restaurant.id %>" class="d-flex position-absolute favorite">
+            <%= render 'restaurant_favorites/favorite-btn', restaurant: restaurant %>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to restaurant.name, restaurant_path(restaurant.id), class: "text-dark" %></h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item border-0"><%= restaurant.restaurant_genre.name %></li>
+          <li class="list-group-item"><%= render 'restaurants/show_rate', restaurant: restaurant %></li>
+        </ul>
+      </div>
     </div>
-    <div class="d-flex justify-content-center mt-3">
-      <%= paginate restaurants %>
-    </div>
+  <% end %>
+</div>
+<div class="row">
+  <div class="mx-auto mt-3">
+    <%= paginate restaurants %>
   </div>
 </div>
