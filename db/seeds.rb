@@ -121,8 +121,8 @@ Recipe.find_or_create_by!(user_id: 1, name: "水切りなし♡豆腐でボリ�
   recipe.cook_time = "約15分"
   recipe.cost = "300円前後"
   recipe.foodstuff_name = "[\"＜つくねの材料＞\", \"鶏挽肉\", \"豆腐\", \"玉ねぎ\", \"片栗粉\", \"鶏がらスープの素\", \"塩\", \"＜タレの材料＞\", \"砂糖\", \"酒\", \"醤油\", \"みりん\"]"
-  recipe.memo = "おいしかった。"
-  recipe.star = 3
+  recipe.memo = "とてもおいしかった。また作る。"
+  recipe.star = 4
 end
 
 Recipe.find_or_create_by!(user_id: 1, name: "豚ひき肉で作る、照り焼き風つくね！") do |recipe|
@@ -234,6 +234,7 @@ end
 recipe_favorites = [
   { user_id: 1, recipe_id: 2 },
   { user_id: 1, recipe_id: 3 },
+  { user_id: 1, recipe_id: 4 },
   { user_id: 1, recipe_id: 5 },
   { user_id: 1, recipe_id: 8 },
   { user_id: 1, recipe_id: 9 },
@@ -406,8 +407,8 @@ Restaurant.find_or_create_by!(user_id: 1, name: "牛すじホルモン 二刀流
   restaurant.address = "大阪府大阪市中央区南本町３丁目3-17　丸松ビル2F"
   restaurant.open_time = "月～土、祝前日: 11:30～14:30 （料理L.O. 14:00 ドリンクL.O. 14:00）17:00～23:00 （料理L.O. 22:00 ドリンクL.O. 22:30）"
   restaurant.legular_holiday = "日、祝日"
-  restaurant.memo = "おいしかった。"
-  restaurant.star = 3
+  restaurant.memo = "とてもおいしかった。また行きたい。"
+  restaurant.star = 4
 end
 
 Restaurant.find_or_create_by!(user_id: 1, name: "スパイスカレーとコーラ ヤドカリー 天王寺hoop店") do |restaurant|
@@ -431,6 +432,7 @@ restaurant_favorites = [
   { user_id: 1, restaurant_id: 5 },
   { user_id: 1, restaurant_id: 7 },
   { user_id: 1, restaurant_id: 8 },
+  { user_id: 1, restaurant_id: 10 },
   { user_id: 1, restaurant_id: 11 }
 ]
 
