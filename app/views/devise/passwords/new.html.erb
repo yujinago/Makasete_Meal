@@ -1,6 +1,6 @@
-<h2>Forgot your password?</h2>
+<h2>パスワードをお忘れですか?</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+<%= form_with model: @user, url: user_password_path, method: :post do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
@@ -9,8 +9,8 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+    <%= f.submit "パスワードのリセットメールを送信" %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<%= link_to "ログイン画面", new_session_path(resource_name) %>に戻る

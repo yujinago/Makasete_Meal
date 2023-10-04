@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   # devise
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
+    passwords: 'users/passwords'
   }
   
   # devise signup時のエラー解消
