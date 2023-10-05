@@ -45,8 +45,8 @@ Rails.application.configure do
     :port => 587,
     :domain => "gmail.com",
     :address => "smtp.gmail.com",
-    :user_name => ENV["GMAIL_USERNAME"] ,
-    :password => ENV["GMAIL_PASSWORD"] ,
+    :user_name => ENV["GMAIL_USERNAME"],
+    :password => ENV["GMAIL_PASSWORD"],
     :authentication => :plain, # 認証方式としてPLAINを使用
     :enable_starttls_auto => true # STARTTLS（Transport Layer Security）を自動的に有効にする設定(セキュアな通信)
   }

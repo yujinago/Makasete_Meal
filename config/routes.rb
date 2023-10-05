@@ -8,13 +8,18 @@ Rails.application.routes.draw do
   # devise signup時のエラー解消
   get 'users' => redirect('/users/sign_up')
   
+  # devise password変更時のエラー解消
+  get 'users/password' => redirect('users/password/new')
+  get 'users/password_reset' => redirect('users/password/edit')
+  
   # homes
   root to: 'homes#top'
   get 'about' => 'homes#about'
   
-  # guest_user
+  # guest_userとpasswordリセット
   devise_scope :user do
     post 'users/guest_sign_in' => 'users/sessions#guest_sign_in'
+    patch 'users/password_reset' => 'users/passwords#update', as: 'user_password_reset'
   end
   
   # users
