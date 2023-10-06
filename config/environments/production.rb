@@ -118,6 +118,7 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
   
+  #password変更時のメール送信設定（本番環境）
   host = '35.76.232.116'
   config.action_mailer.default_url_options = { protocol: 'http', host: host }
   config.action_mailer.raise_delivery_errors = true
@@ -130,5 +131,6 @@ Rails.application.configure do
     :password => ENV["GMAIL_PASSWORD"],
     :authentication => :plain,
     :enable_starttls_auto => true
- }
+  }
+  
 end
