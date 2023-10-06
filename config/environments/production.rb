@@ -119,8 +119,8 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
   
   #password変更時のメール送信設定（本番環境）
-  host = '35.76.232.116'
-  config.action_mailer.default_url_options = { protocol: 'http', host: host }
+  host = 'makasete-meal.com'
+  config.action_mailer.default_url_options = { protocol: 'https', host: host }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
