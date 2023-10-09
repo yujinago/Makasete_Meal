@@ -38,32 +38,32 @@ class RestaurantsController < ApplicationController
   def middle_area_select
     # 大エリア選択後、大エリアに紐づく中エリア情報をAPIから引き出す
     if request.xhr?
-    middle_area_results = []
-    large_area = params[:restaurant_large_area]
-    key = ENV['HotPepper_API_KEY']
-    middle_area_uri = URI.parse("http://webservice.recruit.co.jp/hotpepper/middle_area/v1/?key=#{key}&large_area=#{large_area}&format=json")
-    middle_area_response = Net::HTTP.get_response(middle_area_uri)
-    
-    # 公式のuriがhttpの為、301エラーが起きた際のuri変更
-    if middle_area_response.code =="301"
-      middle_area_uri = URI.parse(middle_area_response["location"])
-    end
-    
-    middle_area_json = Net::HTTP.get(middle_area_uri)
-    middle_area_result_all = JSON.parse(middle_area_json)
-    
-    middle_area_result_all["results"]["middle_area"].each do |middle_area|
-      code = middle_area["code"]
-      name = middle_area["name"]
-    
-      middle_area_result = { name => code }
-      middle_area_results << middle_area_result
-    end
-    
-    # 表示形式変更
-    @middle_area_results = middle_area_results.reduce({}, :merge)
-    
-    render partial: 'restaurants/middle_area',locals: {middle_area_results: @middle_area_results}
+      middle_area_results = []
+      large_area = params[:restaurant_large_area]
+      key = ENV['HotPepper_API_KEY']
+      middle_area_uri = URI.parse("http://webservice.recruit.co.jp/hotpepper/middle_area/v1/?key=#{key}&large_area=#{large_area}&format=json")
+      middle_area_response = Net::HTTP.get_response(middle_area_uri)
+      
+      # 公式のuriがhttpの為、301エラーが起きた際のuri変更
+      if middle_area_response.code =="301"
+        middle_area_uri = URI.parse(middle_area_response["location"])
+      end
+      
+      middle_area_json = Net::HTTP.get(middle_area_uri)
+      middle_area_result_all = JSON.parse(middle_area_json)
+      
+      middle_area_result_all["results"]["middle_area"].each do |middle_area|
+        code = middle_area["code"]
+        name = middle_area["name"]
+      
+        middle_area_result = { name => code }
+        middle_area_results << middle_area_result
+      end
+      
+      # 表示形式変更
+      @middle_area_results = middle_area_results.reduce({}, :merge)
+      
+      render partial: 'restaurants/middle_area',locals: {middle_area_results: @middle_area_results}
     end
     
   end
@@ -87,47 +87,47 @@ class RestaurantsController < ApplicationController
       genre_code = @restaurant_genres.offset( rand(@restaurant_genres.count) ).first.genre_code
     end
     
-      restaurant_genre = RestaurantGenre.find_by(genre_code: genre_code)
+    restaurant_genre = RestaurantGenre.find_by(genre_code: genre_code)
+    
+    # APIから情報を引き出す
+    key = ENV['HotPepper_API_KEY']
+    uri = URI.parse("http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=#{key}&genre=#{genre_code}&large_area=#{large_area}&middle_area=#{middle_area}&format=json")
+    response = Net::HTTP.get_response(uri)
+    
+    # 公式のuriがhttpの為、301エラーが起きた際のuri変更
+    if response.code =="301"
+      uri = URI.parse(response["location"])
+    end
+    
+    json = Net::HTTP.get(uri)
+    result_all = JSON.parse(json)
+    
+    result_all["results"]["shop"].each {|n| results << n}
+    result = results.sample
+    
+    if result.nil?
+      flash[:alert] = "指定された条件のお店は見つかりませんでした。条件を変更してください。"
+      redirect_to new_restaurant_path
+    else
+      result_hash = {
+        user_id: current_user.id,
+        restaurant_genre_id: restaurant_genre.id,
+        name: result["name"],
+        url: result["urls"]["pc"],
+        address: result["address"],
+        open_time: result["open"],
+        legular_holiday: result["close"]
+      }
       
-      # APIから情報を引き出す
-      key = ENV['HotPepper_API_KEY']
-      uri = URI.parse("http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=#{key}&genre=#{genre_code}&large_area=#{large_area}&middle_area=#{middle_area}&format=json")
-      response = Net::HTTP.get_response(uri)
+      # confirm画面ではまだ画像を保存していないため、APIから情報をキープ
+      @restaurant_image = result["photo"]["pc"]["l"]
       
-      # 公式のuriがhttpの為、301エラーが起きた際のuri変更
-      if response.code =="301"
-        uri = URI.parse(response["location"])
-      end
+      # 同条件でお店を探す場合に必要なため、APIから情報をキープ
+      @restaurant_large_area = result["large_area"]["code"]
+      @restaurant_middle_area = result["middle_area"]["code"]
       
-      json = Net::HTTP.get(uri)
-      result_all = JSON.parse(json)
-      
-      result_all["results"]["shop"].each {|n| results << n}
-      result = results.sample
-      
-      if result.nil?
-        flash[:alert] = "指定された条件のお店は見つかりませんでした。条件を変更してください。"
-        redirect_to new_restaurant_path
-      else
-        result_hash = {
-          user_id: current_user.id,
-          restaurant_genre_id: restaurant_genre.id,
-          name: result["name"],
-          url: result["urls"]["pc"],
-          address: result["address"],
-          open_time: result["open"],
-          legular_holiday: result["close"]
-        }
-        
-        # confirm画面ではまだ画像を保存していないため、APIから情報をキープ
-        @restaurant_image = result["photo"]["pc"]["l"]
-        
-        # 同条件でお店を探す場合に必要なため、APIから情報をキープ
-        @restaurant_large_area = result["large_area"]["code"]
-        @restaurant_middle_area = result["middle_area"]["code"]
-        
-        @restaurant = Restaurant.new(result_hash)
-      end
+      @restaurant = Restaurant.new(result_hash)
+    end
   end
   
   def create
