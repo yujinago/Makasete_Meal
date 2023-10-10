@@ -1,6 +1,5 @@
-// ラジオボタンの変更を監視する関数
+// ラジオボタンの変更を監視する
 function setupRadioButtonChangeHandler() {
-  // ラジオボタンの変更を監視
   $('input[type="radio"][name="restaurant[location_choice]"]').on('change', function() {
     if ($(this).val() === "1") {
       // 位置情報を取得する
@@ -9,14 +8,14 @@ function setupRadioButtonChangeHandler() {
       // ラジオボタンが選択されていない場合、位置情報を非表示にする
       $('#location-info').hide();
       
-      // ラジオボタンが選択されていない場合、latitudeとlongitudeフィールドに初期値を設定
-      $('#latitude').val(''); // 初期値を空に設定
-      $('#longitude').val(''); // 初期値を空に設定
+      // ラジオボタンが選択されていない場合、latitudeとlongitudeフィールドに初期値を設定する
+      $('#latitude').val('');
+      $('#longitude').val('');
     }
   });
 }
 
-// ページ読み込み時に実行
+// ページ読み込み時に実行する
 $(document).on('turbolinks:load', function() {
   // ラジオボタンの変更を監視する関数を呼び出す
   setupRadioButtonChangeHandler();
@@ -38,5 +37,5 @@ function successCallback(position) {
 
 // 取得に失敗した場合の処理
 function errorCallback(error) {
-  alert("位置情報が取得できませんでした");
+  alert("位置情報が取得できませんでした。");
 }

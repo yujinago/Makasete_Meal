@@ -81,18 +81,17 @@ class RestaurantsController < ApplicationController
         large_area = params[:restaurant][:restaurant_large_area]
         middle_area = params[:restaurant][:restaurant_middle_area]
         if large_area.blank? || middle_area.blank?
-          flash[:alert] = "場所を選択するか、完全におまかせを選択してください。"
+          flash[:alert] = "都道府県と、その先の中エリアを選択してください。"
           redirect_to new_restaurant_path
         end
       elsif params[:restaurant][:location_choice] == "1"
         latitude = params[:restaurant][:latitude]
         longitude = params[:restaurant][:longitude]
         if latitude.blank? || longitude.blank?
-          flash[:alert] = "場所を選択するか、完全におまかせを選択してください。"
+          flash[:alert] = "緯度、経度が表示されるまでお待ちください。"
           redirect_to new_restaurant_path
         end
       end
-      
     elsif params[:restaurant][:select_restaurant_genre_id] == "1"
       genre_code = @restaurant_genres.offset( rand(@restaurant_genres.count) ).first.genre_code
     end
@@ -135,8 +134,10 @@ class RestaurantsController < ApplicationController
       # 同条件でお店を探す場合に必要なため、APIから情報をキープ
       @restaurant_large_area = result["large_area"]["code"]
       @restaurant_middle_area = result["middle_area"]["code"]
-      @latitude = result["lat"]
-      @longitude = result["lng"]
+      
+      # 同条件でお店を探す場合に必要なため、変数指定
+      @latitude = latitude
+      @longitude = longitude
       
       @restaurant = Restaurant.new(result_hash)
     end
