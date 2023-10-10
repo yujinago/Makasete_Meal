@@ -77,12 +77,22 @@ class RestaurantsController < ApplicationController
       if genre_code.blank?
         genre_code = @restaurant_genres.offset( rand(@restaurant_genres.count) ).first.genre_code
       end
-      large_area = params[:restaurant][:restaurant_large_area]
-      middle_area = params[:restaurant][:restaurant_middle_area]
-      if large_area.blank? || middle_area.blank?
-        flash[:alert] = "場所を選択するか、完全におまかせを選択してください。"
-        redirect_to new_restaurant_path
+      if params[:restaurant][:location_choice] == "0"
+        large_area = params[:restaurant][:restaurant_large_area]
+        middle_area = params[:restaurant][:restaurant_middle_area]
+        if large_area.blank? || middle_area.blank?
+          flash[:alert] = "場所を選択するか、完全におまかせを選択してください。"
+          redirect_to new_restaurant_path
+        end
+      elsif params[:restaurant][:location_choice] == "1"
+        latitude = params[:restaurant][:latitude]
+        longitude = params[:restaurant][:longitude]
+        if latitude.blank? || longitude.blank?
+          flash[:alert] = "場所を選択するか、完全におまかせを選択してください。"
+          redirect_to new_restaurant_path
+        end
       end
+      
     elsif params[:restaurant][:select_restaurant_genre_id] == "1"
       genre_code = @restaurant_genres.offset( rand(@restaurant_genres.count) ).first.genre_code
     end
@@ -91,7 +101,7 @@ class RestaurantsController < ApplicationController
     
     # APIから情報を引き出す
     key = ENV['HotPepper_API_KEY']
-    uri = URI.parse("http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=#{key}&genre=#{genre_code}&large_area=#{large_area}&middle_area=#{middle_area}&format=json")
+    uri = URI.parse("http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=#{key}&genre=#{genre_code}&large_area=#{large_area}&middle_area=#{middle_area}&lat=#{latitude}&lng=#{longitude}&format=json")
     response = Net::HTTP.get_response(uri)
     
     # 公式のuriがhttpの為、301エラーが起きた際のuri変更
@@ -125,6 +135,8 @@ class RestaurantsController < ApplicationController
       # 同条件でお店を探す場合に必要なため、APIから情報をキープ
       @restaurant_large_area = result["large_area"]["code"]
       @restaurant_middle_area = result["middle_area"]["code"]
+      @latitude = result["lat"]
+      @longitude = result["lng"]
       
       @restaurant = Restaurant.new(result_hash)
     end
