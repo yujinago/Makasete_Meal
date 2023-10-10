@@ -8,14 +8,26 @@
         <div class="form-group">
           <%= f.radio_button :select_restaurant_genre_id, 0, checked: true %>
           <%= f.label :select_restaurant_genre_id, "条件を選択する", style: "margin-right:62px;" %>
-          <div class="ml-5">
+          <div class="ml-3">
             <%= f.label :restaurant_genre_id, "ジャンル" %>
             <%= f.collection_select :restaurant_genre_id, @restaurant_genres, :genre_code, :name, include_blank: "--選択してください(任意)--" %>
           </div>
-          <div class="ml-5">
+          <div class="ml-3 mt-2">
+            <%= f.radio_button :location_choice, 0, checked: true %>
             <%= f.label :restaurant_area, "場所" %>
-            <%= f.select :restaurant_large_area, @large_area_results, {include_blank: "--必須--"}, {id: "large_area_results"} %>
+            <%= f.select :restaurant_large_area, @large_area_results, {include_blank: "--任意--"}, {id: "large_area_results"} %>
             <%= render 'restaurants/middle_area', middle_area_results: [] %>
+          </div>
+          <div class="ml-3 mt-2">
+            <%= f.radio_button :location_choice, 1 %>
+            <%= f.label :restaurant_area, "現在地を取得する" %>
+            <p class="text-danger">※緯度と経度が表示されるまでお待ちください</p>
+            <div id="location-info" class="ml-5" style="display: none;">
+              <p>緯度: <span id="latitude-display"></span></p>
+              <p>経度: <span id="longitude-display"></span></p>
+            </div>
+            <%= f.hidden_field :latitude, id: "latitude" %>
+            <%= f.hidden_field :longitude, id: "longitude" %>
           </div>
         </div>
         <div class="form-group">
