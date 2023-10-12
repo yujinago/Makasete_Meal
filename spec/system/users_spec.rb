@@ -10,6 +10,22 @@ RSpec.describe Users, type: :system do
     login_as(@user, :scope => :user)
   end
   
+  describe 'ゲストユーザーの場合' do
+    let(:guest_user) { User.guest }
+
+    before do
+      login_as(guest_user, :scope => :user)
+      visit users_mypage_path
+    end
+    it '編集するボタンが表示されないこと' do
+      expect(page).not_to have_link('編集する', href: users_infomation_edit_path)
+    end
+    it 'ゲストユーザーがプロフィール編集画面へ遷移できないこと' do
+      visit users_infomation_edit_path
+      expect(page).to have_content('ゲストユーザーはプロフィール編集画面へ遷移できません。')
+    end
+  end
+  
   describe 'ユーザー詳細画面(users_mypage_path)のテスト' do
     before do
       visit users_mypage_path
@@ -60,6 +76,22 @@ RSpec.describe Users, type: :system do
       expect(current_path).to eq(users_mypage_path)
       expect(page).to have_content('新しい名前')
       expect(page).to have_content('new@example.com') 
+    end
+    context '無効なデータの送信' do
+      it '空のフィールドがエラーとなること' do
+        fill_in 'user[nickname]', with: ''
+        fill_in 'user[email]', with: ''
+        click_button '編集内容を保存'
+        expect(page).to have_content('エラーが発生しました')
+        expect(page).to have_content('ニックネームを入力してください')
+        expect(page).to have_content('Eメールを入力してください')
+      end
+      it '無効なメールアドレスがエラーとなること' do
+        fill_in 'user[email]', with: 'invalid_email'
+        click_button '編集内容を保存'
+        expect(page).to have_content('エラーが発生しました')
+        expect(page).to have_content('Eメールは不正な値です')
+      end
     end
   end
   
