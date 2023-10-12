@@ -34,7 +34,8 @@
 - OS：Linux(AmazonLinux2)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails,Bootstrap
-- JSライブラリ：jQuery
+- テストフレームワーク：RSpec
+- JSライブラリ：jQuery,Ajax
 - IDE：Cloud9
 ​
 ## 使用素材
