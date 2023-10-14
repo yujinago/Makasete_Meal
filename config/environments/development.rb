@@ -34,9 +34,22 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
+  
+  #password変更時のメール送信設定（開発環境）
+  host = 'e648eb16267041bf9faae05afede8009.vfs.cloud9.ap-northeast-1.amazonaws.com'
+  config.action_mailer.default_url_options = { protocol: 'https', host: host }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_caching = false
+  config.action_mailer.smtp_settings = {
+    :port => 587,
+    :domain => "gmail.com",
+    :address => "smtp.gmail.com",
+    :user_name => ENV["GMAIL_USERNAME"],
+    :password => ENV["GMAIL_PASSWORD"],
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

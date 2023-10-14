@@ -1,4 +1,8 @@
 ja:
+  activemodel:
+    attributes:
+      contact:
+        content: "お問い合わせ内容"
   activerecord:
     errors:
       messages:

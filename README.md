@@ -31,10 +31,11 @@
 - [テスト仕様書](https://docs.google.com/spreadsheets/d/14DhwCaxBg0YbiHp1_4r0Nikz6c9iugvO/edit?usp=sharing&ouid=111808952354361594140&rtpof=true&sd=true)
 ​
 ## 開発環境
-- OS：Linux(CentOS)
+- OS：Linux(AmazonLinux2)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
-- フレームワーク：Ruby on Rails
-- JSライブラリ：jQuery
+- フレームワーク：Ruby on Rails,Bootstrap
+- テストフレームワーク：RSpec
+- JSライブラリ：jQuery,Ajax
 - IDE：Cloud9
 ​
 ## 使用素材

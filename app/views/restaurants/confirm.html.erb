@@ -36,9 +36,17 @@
       <%= form_with model: @restaurant, url: confirm_restaurants_path, method: :post do |f| %>
         <%= f.hidden_field :select_restaurant_genre_id, :value => 0 %>
         <%= f.hidden_field :restaurant_genre_id, :value => @restaurant.restaurant_genre.genre_code %>
-        <%= f.hidden_field :restaurant_large_area, :value => @restaurant_large_area %>
-        <%= f.hidden_field :restaurant_middle_area, :value => @restaurant_middle_area %>
-        <%= f.submit "同じジャンル・場所で別のお店を探す", class:"btn btn-outline-secondary" %>
+        <% if params[:restaurant][:location_choice] == "0" || params[:restaurant][:select_restaurant_genre_id] == "1" %>
+          <%= f.hidden_field :location_choice, :value => 0 %>
+          <%= f.hidden_field :restaurant_large_area, :value => @restaurant_large_area %>
+          <%= f.hidden_field :restaurant_middle_area, :value => @restaurant_middle_area %>
+          <%= f.submit "同じジャンル・同じ場所で再検索", class:"btn btn-outline-secondary" %>
+        <% elsif params[:restaurant][:location_choice] == "1" %>
+          <%= f.hidden_field :location_choice, :value => 1 %>
+          <%= f.hidden_field :latitude, :value => @latitude %>
+          <%= f.hidden_field :longitude, :value => @longitude %>
+          <%= f.submit "同じジャンル・現在地で再検索", class:"btn btn-outline-secondary" %>
+        <% end %>
       <% end %>
     </div>
   </div>

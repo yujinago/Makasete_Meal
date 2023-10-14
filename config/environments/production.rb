@@ -117,4 +117,20 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+  
+  #password変更時のメール送信設定（本番環境）
+  host = 'makasete-meal.com'
+  config.action_mailer.default_url_options = { protocol: 'https', host: host }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :port => 587,
+    :domain => "gmail.com",
+    :address => "smtp.gmail.com",
+    :user_name => ENV["GMAIL_USERNAME"],
+    :password => ENV["GMAIL_PASSWORD"],
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+  
 end
