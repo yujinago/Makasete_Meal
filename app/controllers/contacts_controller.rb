@@ -5,6 +5,7 @@ class ContactsController < ApplicationController
   end
 
   def create
+    @user = current_user
     @contact = Contact.new(contact_params)
     if @contact.valid?
       ContactMailer.send_mail(@contact, current_user).deliver
